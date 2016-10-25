@@ -1,23 +1,26 @@
 <?php
+
+	// starts a session, checks if user is signed in
 	session_start();
 
 	if(isset($_SESSION['userid'])){
 		header("Location: index.php");
 	}
 
-	include_once "connectdb.php";
-
+	include_once 'connectdb.php';
+	
+	// set validation error flag as false
 	$error = false;
 
+	// check if form is submitted
 	if(isset($_POST['signup'])){
-
 		$username = mysqli_real_escape_string($con, $_POST['username']);
 		$email = mysqli_real_escape_string($con, $_POST['email']);
 		$password = mysqli_real_escape_string($con, $_POST['password']);
 		$cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
 
-		// username can contain only alpha characters
-		if(!preg_match("/^\w+$/", $username)){
+		// name can contain only alpha characters
+		if(!preg_match("/^\w+$/",$username)){
 			$error = true;
 			$username_error = "Username can contain only alphanumerics and underscores";
 		}
@@ -25,19 +28,19 @@
 		// validates email address
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 			$error = true;
-			$email_error = "Please enter a valid email ID";
+			$email_error = "Please enter valid email ID";		
 		}
 
-		// check if password is over minimum length requirement
-		if(strlen($password) < 6){
+		// checks password is over minimum length requirement
+		if(strlen($password)<6){
 			$error = true;
-			$password_error = "Password must be a minimum of 6 characters";
+			$password_error = "Password must be a minimum of 6 characters";		
 		}
 
 		// check if password confirmation matches
 		if($password != $cpassword){
 			$error = true;
-			$cpassword_error = "Password confirmation does not match password";
+			$cpassword_error = "Password confirmation does not match password";			
 		}
 
 		// handles request if no errors were caught
@@ -45,18 +48,16 @@
 			// attempts to insert new user info into database
 			// password is passed through a hash function producing a new hash value
 
-			$query = "INSERT INTO users (username, email, password) VALUES ('" . $username . "','" . $email . "','" . md5($password) . "')";
+			$query = "INSERT INTO users (username, email, password) VALUES('" . $username . "','" . $email . "','" . md5($password) . "')";
 
 			if(mysqli_query($con, $query)){
-				$successmsg = "Registration successful. <a href = 'login.php'>Click here to login.</a>";	
+				$successmsg = "Registration successful. <a href = 'login.php'>Click here to login.</a>";
 			}else{
 				$errormsg = "Registration unsuccessful. Please try again later.";
-			}
+			}	
+					
 		}
 	}
-
-
-
 ?>
 
 <!DOCTYPE html>
