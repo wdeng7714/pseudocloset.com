@@ -81,12 +81,12 @@
 				</div>
 				<div class = "col-md-4">
 					<ul>
-						<li class = "btn btn-default btn-block"> View Closet </li>
-						<li class = "btn btn-default btn-block"> Planner </li>
-						<li class = "btn btn-default btn-block"> Add Clothing</li>
-						<li class = "btn btn-default btn-block"> Laundry Basket
-						</li>
-
+						<a href = "viewcloset.php" class = "btn btn-default btn-block">View Closet</a>
+						<a href = "planner.php" class = "btn btn-default btn-block">Planner</a>
+						<a class = "btn btn-default btn-block" href = "addclothing.php">Add Clothing
+						</a>
+						<a href = "laundrybasket.php" class = "btn btn-default btn-block">Laundry Basket
+						</a>
 					</ul>
 				</div>
 			</div> 
