@@ -64,8 +64,34 @@
 					</h2>
 				</div>
 			</div>
+			<div class = "row">
+				<div class = "col-md-8 well">
+					<h3 class = "text-center"> Alerts </h3>
+					<?php 
+						$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
+						$result = mysqli_query($con, $query);
+						while($row = mysqli_fetch_array($result)){
+							if ($row['timesworn']>=1){
+								//echo "<div> <p>". "</p> </div>";
+								echo "<div> <p>". $row["name"]. " has been worn ". $row["timesworn"] . " times, it's time for a wash! " . $row["name"] ." has been placed in your laundry basket. </p> </div>";	
+							}
+						}
+					?> 
+					
+				</div>
+				<div class = "col-md-4">
+					<ul>
+						<li class = "btn btn-default btn-block"> View Closet </li>
+						<li class = "btn btn-default btn-block"> Planner </li>
+						<li class = "btn btn-default btn-block"> Add Clothing</li>
+						<li class = "btn btn-default btn-block"> Laundry Basket
+						</li>
+
+					</ul>
+				</div>
+			</div> 
 		</div>
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
-	</body>
+	</body> 
 </html>
