@@ -1,12 +1,15 @@
 <?php
+session_start();
 include_once "connectdb.php";
-header("Location: register.php");
+if (session_status() !== PHP_SESSION_ACTIVE){
+	header("Location: register.php");
+}
 ?>
 
 <html>
-<head>
-	<title>PseudoCloset</title>
-	<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
+	<head>
+		<title>PseudoCloset</title>
+		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
 </head>
 <body>
 	<nav class = "navbar navbar-default" role = "navigation">
@@ -30,6 +33,9 @@ header("Location: register.php");
 				</div>
 			</div>
 		</nav>
+		<div class = "text-center">Welcome to <?php echo $_SESSION['username'];?>'s PseudoCloset 
+		</div>
+		
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
 	</body>
