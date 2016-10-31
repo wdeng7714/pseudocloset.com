@@ -12,10 +12,10 @@
 	<head>
 		<title>Home | PseudoCloset</title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
-		<link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/> 
+		<link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
@@ -55,10 +55,16 @@
 				</div>
 			</div>
 		</nav>
-
-		<div class = "text-center">Welcome to <?php echo $_SESSION['username'];?>'s PseudoCloset 
-		</div>
 		
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-md-12">
+					<h2 class = "text-center">
+						Welcome to <?php echo $_SESSION['username'];?>'s PseudoCloset
+					</h2>
+				</div>
+			</div>
+		</div>
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
 	</body>
