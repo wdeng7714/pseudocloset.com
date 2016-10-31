@@ -1,6 +1,9 @@
 <?php
 	session_start();
 	include_once "connectdb.php";
+	if (!isset($_SESSION['userid'])){
+		header("Location: register.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +55,7 @@
 				</div>
 			</div>
 		</nav>
-		
+
 		<div class = "text-center">Welcome to <?php echo $_SESSION['username'];?>'s PseudoCloset 
 		</div>
 		
