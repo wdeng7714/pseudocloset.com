@@ -1,3 +1,26 @@
+<?php
+	session_start();
+	if(!isset($_SESSION['userid'])){
+		header("Location: index.php");
+	}
+
+	include_once 'connectdb.php';
+
+	$error = false;
+
+	if(isset($_POST['addclothing'])){
+		echo "hi";
+		$name = mysqli_real_escape_string($con, $_POST['name']);
+		$type = mysqli_real_escape_string($con, $_POST['type']);
+		$color = mysqli_real_escape_string($con, $_POST['color']);
+		$timesworn = mysqli_real_escape_string($con, $_POST['timesworn']);
+		$lastworn = mysqli_real_escape_string($con, $_POST['lastworn']);
+
+
+		echo $name.$type.$color.$timesworn.$lastworn;
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,13 +36,6 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/> 
         <link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
         <link rel = "stylesheet" href = "vendor/datepicker/datepicker.css"/>
-
-		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
-        <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src = "vendor/datepicker/locales.js"></script>
-        <script src = "vendor/datepicker/datepicker.js"></script>
-        <script src = "vendor/jscolor/jscolor.js"</script>
-        <script src = "js/main.js"></script>
     </head>
 
     <body>
@@ -101,7 +117,7 @@
                             <div class = "form-group">
                                 <label for = "lastworn">Last worn</label>
                                 <div class='input-group date' id='datepicker'>
-                                    <input type='text' class="form-control" required placeholder = "MM/DD/YYYY"/>
+                                    <input type='text' class="form-control" required placeholder = "MM/DD/YYYY" name = "lastworn"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar">
                                         </span>
@@ -119,14 +135,12 @@
                 </div>
             </div>
         </div>
-        
-        <script type="text/javascript">
-            $(function () {
-                $('#datepicker').datetimepicker({
-                	format: 'MM/DD/YYYY'
-                });
-            });
-        </script>
 
+		<script src = "vendor/jquery/jquery-2.1.1.min.js"></script>
+        <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src = "vendor/datepicker/locales.js"></script>
+        <script src = "vendor/datepicker/datepicker.js"></script>
+        <script src = "vendor/jscolor/jscolor.js"></script>
+        <script src = "js/main.js"></script>
     </body>
 </html>
