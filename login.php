@@ -40,6 +40,7 @@
 		<meta content = "width = device.width, initial-scale = 1.0" name = "viewport">
 		<link href = "https://fonts.googleapis.com/css?family=Ubuntu" rel = "stylesheet">
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type = "text/css"/>
+        <link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
 	</head>
 	
 	<body>

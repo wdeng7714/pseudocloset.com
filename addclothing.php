@@ -8,6 +8,7 @@
 
 	$error = false;
 
+echo "hi";
 	if(isset($_POST['addclothing'])){
 		echo "hi";
 		$name = mysqli_real_escape_string($con, $_POST['name']);
