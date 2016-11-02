@@ -62,22 +62,42 @@
                 <div class = "collapse navbar-collapse" id = "navbar">
                     <ul class = "nav navbar-nav navbar-right">
                         <?php if(isset($_SESSION['userid'])){?>
+							<li>
+								<a href = "viewcloset.php">View closet</a>
+							</li>
+							<li>
+								<a href = "planner.php">Planner</a>
+							</li>
+							<li class = "active">
+								<a href = "addclothing.php">
+									Add clothing
+								</a>
+							</li>
+							<li>
+								<a href = "laundrybasket.php">Laundry basket</a>
+							</li>
                             <li>
-                                <p class = "navbar-text">
-                                	<i class="fa fa-user" aria-hidden="true"></i>
+                            	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            		<i class="fa fa-user" aria-hidden="true"></i>
                              		 <?php echo $_SESSION['username'];?>
-                                </p>
-                            </li>
-                            <li>
-                                <a href = "logout.php">Logout</a>
+                             		<span class="caret"></span>
+                             	</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="logout.php">
+											<span class = "glyphicon glyphicon-log-out"></span>
+											 Logout
+										</a>
+									</li>
+								</ul>
                             </li>
                         <?php } else { ?>
-                            <li>
-                                <a href = "login.php">Login</a>
-                            </li>
-                            <li>
-                                <a href = "register.php">Sign Up</a>
-                            </li>
+							<li>
+								<a href = "register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+							</li>
+							<li>
+								<a href = "login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+							</li>
                         <?php } ?>
                     </ul>
                 </div>
