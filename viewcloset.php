@@ -4,6 +4,48 @@
 	if (!isset($_SESSION['userid'])){
 		header("Location: register.php");
 	}
+
+	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
+	$result = mysqli_query($con, $query);
+
+	$display=0;
+	$max_per_page = 20;
+	$result_copy = $result;
+
+	if(isset($_POST['view'])){
+		echo '<h4>View: ' . $_POST['view'] . '</h4>';
+		if(($_POST['view'] == 'all')){
+			while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
+				$display++;
+				echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6"><a href = "#" class = "thumbnail"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+			}
+		}
+		elseif($_POST['view'] == 'tops'){
+			while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
+				$display++;
+				if($row['type'] == 'sweater' || $row['type'] == 'shirt'){
+					echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6"><a href = "#" class = "thumbnail"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+				}
+			}
+		}
+		elseif($_POST['view'] == 'bottoms'){
+			while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
+				$display++;
+				if($row['type'] == 'pants'){
+					echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6"><a href = "#" class = "thumbnail"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+				}
+			}
+		}
+		elseif($_POST['view'] == 'misc'){
+			while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
+				$display++;
+				if($row['type'] == 'socks'){
+					echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6"><a href = "#" class = "thumbnail"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+				}
+			}
+		}
+	}
+	else{
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,67 +59,94 @@
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
-			<div class = "container-fluid">
-				<div class= " navbar-header">
-					<button type = "button" class = "navbar-toggle" data-toggle ="collapse" data-target = "#navbar">
-						<span class ="sr-only"> Toggle navigation </span>
-						<span class ="icon-bar"></span>
-						<span class = "icon-bar"></span>
-						<span class = "icon-bar"></span>
-					</button>
-					<a class = "navbar-brand" href= "index.php">
-						PseudoCloset
-					</a>
-				</div>
+            <div class = "container-fluid">
+                <div class= " navbar-header">
+                    <button type = "button" class = "navbar-toggle" data-toggle ="collapse" data-target = "#navbar">
+                        <span class ="sr-only"> Toggle navigation </span>
+                        <span class ="icon-bar"></span>
+                        <span class = "icon-bar"></span>
+                        <span class = "icon-bar"></span>
+                    </button>
+                    <a class = "navbar-brand" href= "index.php">
+                        PseudoCloset
+                    </a>
+                </div>
 
-				<div class = "collapse navbar-collapse" id = "navbar">
-					<ul class = "nav navbar-nav navbar-right">
-						<?php if(isset($_SESSION['userid'])){?>
-							<li>
-								<p class = "navbar-text">
-									Signed in as <?php echo $_SESSION['username'];?>
-								</p>
+                <div class = "collapse navbar-collapse" id = "navbar">
+                    <ul class = "nav navbar-nav navbar-right">
+                        <?php if(isset($_SESSION['userid'])){?>
+							<li class = "active">
+								<a href = "viewcloset.php">View closet</a>
 							</li>
 							<li>
-								<a href = "logout.php">Logout</a>
-							</li>
-						<?php } else { ?>
-							<li>
-								<a href = "login.php">Login</a>
+								<a href = "planner.php">Planner</a>
 							</li>
 							<li>
-								<a href = "register.php">Sign Up</a>
+								<a href = "addclothing.php">
+									Add clothing
+								</a>
 							</li>
-						<?php } ?>
-					</ul>
-				</div>
-			</div>
-		</nav>
+							<li>
+								<a href = "laundrybasket.php">Laundry basket</a>
+							</li>
+                            <li>
+                            	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            		<i class="fa fa-user" aria-hidden="true"></i>
+                             		 <?php echo $_SESSION['username'];?>
+                             		<span class="caret"></span>
+                             	</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="logout.php">
+											<span class = "glyphicon glyphicon-log-out"></span>
+											 Logout
+										</a>
+									</li>
+								</ul>
+                            </li>
+                        <?php } else { ?>
+							<li>
+								<a href = "register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+							</li>
+							<li>
+								<a href = "login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+							</li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 		<div class = "container"> 
 			<div class ="row" >
-				<div class = "col-md-12">
-					<h2 class = "text-center">Closet View </h2>
+				<div class = "col-lg-12">
+					<h2 class = "text-center page-header">Closet View </h2>
 				</div>
 				<div class = "col-md-12">
-					<div class = "btn-group btn-group-justified">
-						<a href ="#" class= "btn btn-default"> All </a>
-						<a href ="#" class= "btn btn-default"> Outfits </a>
-						<a href ="#" class= "btn btn-default"> Tops </a>
-						<a href ="#" class= "btn btn-default"> Bottoms </a>
-						<a href ="#" class= "btn btn-default"> Misc </a>
-						<a href ="#" class= "btn btn-default"> New </a>
+					<div class = "btn-group btn-group-justified" id = "views">
+						<a href ="#" class= "btn btn-default" id = "all"> All </a>
+						<a href ="#" class= "btn btn-default" id = "outfits"> Outfits </a>
+						<a href ="#" class= "btn btn-default" id = "tops"> Tops </a>
+						<a href ="#" class= "btn btn-default" id = "bottoms"> Bottoms </a>
+						<a href ="#" class= "btn btn-default" id = "misc"> Misc </a>
+						<a href ="addclothing.php" class= "btn btn-default" id = "new"> <i class = "fa fa-plus" aria-hidden="true"></i></a>
 					</div>
 				</div>
-				<?php 
-					$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
-					$result = mysqli_query($con, $query);
-					$display=0;
-					while ($row = mysqli_fetch_array($result) and $display<20){
-						$display++;
-						echo '<div class = "col-sm-2"><img src="' . $row["url"] . '" class="img-rounded" width = "150" height = "150" ></div>';
 
-					}?>
+				<div class = "col-lg-12" id = "viewstage">
+					<h4>View: all</h4>
+					<?php
+						while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
+							$display++;
+							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6"><a href = "#" class = "thumbnail"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+						}
+					?>
+				</div>
 			</div>
 		</div>
+		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
+        <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src = "js/main.js"></script>
 	</body>
 </html>
+
+<?php } ?>

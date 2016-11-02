@@ -14,8 +14,9 @@
 		$color = mysqli_real_escape_string($con, $_POST['color']);
 		$timesworn = (int) mysqli_real_escape_string($con, $_POST['timesworn']);
 		$lastworn = mysqli_real_escape_string($con, $_POST['lastworn']);
+		$url = mysqli_real_escape_string($con, $_POST['url']);
 
-		$query = "INSERT INTO clothing (userid,name,type,color,timesworn,lastworn) VALUES ('" . $_SESSION['userid'] . "','" . $name . "','" . $type . "','" . $color . "','" . $timesworn . "','" . $lastworn . "')";
+		$query = "INSERT INTO clothing (userid,name,type,color,timesworn,lastworn,url) VALUES ('" . $_SESSION['userid'] . "','" . $name . "','" . $type . "','" . $color . "','" . $timesworn . "','" . $lastworn . "','" . $url . "')";
 
 			if(mysqli_query($con, $query)){
 				$successmsg = "Clothing successfully added. <a href = 'viewcloset.php'>Click here to view closet</a>";			
@@ -152,6 +153,10 @@
                             </div>
 
                             <div class = "form-group">
+                            	<label for = "url">Image url</label>
+                            	<input type = "text" name = "url" placeholder = "www.example.com/image.jpg" class = "form-control"/>
+                            </div>
+                            <div class = "form-group">
                             	<button type = "submit" name = "addclothing" class = "btn btn-primary">
                             		Submit
                             	</button>
@@ -171,6 +176,10 @@
         <script src = "vendor/datepicker/locales.js"></script>
         <script src = "vendor/datepicker/datepicker.js"></script>
         <script src = "vendor/jscolor/jscolor.js"></script>
-        <script src = "js/main.js"></script>
+        <script type = "text/javascript">
+        	$('#datepicker').datetimepicker({
+				format: 'YYYY-MM-DD'
+    		});
+    	</script>
     </body>
 </html>
