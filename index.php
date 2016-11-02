@@ -38,7 +38,7 @@
 							<li>
 								<a href = "planner.php">Planner</a>
 							</li>
-							<li class = "active">
+							<li>
 								<a href = "addclothing.php">
 									Add clothing
 								</a>
@@ -117,7 +117,7 @@
 				<div class = "container">
 					<h1>Welcome to PseudoCloset</h1>
 					<p>
-						You ever had that moment when you stare blankly into your cloest and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
+						You ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
 					</p>
 					<button class = "btn btn-primary">
 						Learn more &raquo
