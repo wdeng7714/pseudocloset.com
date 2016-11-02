@@ -8,17 +8,21 @@
 
 	$error = false;
 
-echo "hi";
 	if(isset($_POST['addclothing'])){
-		echo "hi";
 		$name = mysqli_real_escape_string($con, $_POST['name']);
 		$type = mysqli_real_escape_string($con, $_POST['type']);
 		$color = mysqli_real_escape_string($con, $_POST['color']);
-		$timesworn = mysqli_real_escape_string($con, $_POST['timesworn']);
+		$timesworn = (int) mysqli_real_escape_string($con, $_POST['timesworn']);
 		$lastworn = mysqli_real_escape_string($con, $_POST['lastworn']);
 
+		$query = "INSERT INTO clothing (userid,name,type,color,timesworn,lastworn) VALUES ('" . $_SESSION['userid'] . "','" . $name . "','" . $type . "','" . $color . "','" . $timesworn . "','" . $lastworn . "')";
 
-		echo $name.$type.$color.$timesworn.$lastworn;
+			if(mysqli_query($con, $query)){
+				$successmsg = "Clothing successfully added. <a href = 'viewcloset.php'>Click here to view closet</a>";			
+			}else{
+				$errormsg = "Clothing was not successfully added. Please try again later.";
+			}
+
 	}
 ?>
 
@@ -83,7 +87,7 @@ echo "hi";
         <div class = "container">
             <div class = "row">
                 <div class = "col-md-6 col-md-offset-3 well">
-                    <form role = "form" action = "<?php echo $_SERVER['PHP_SELF']; ?>" nethod = "post" name = "addclothingform">
+            		<form role = "form" action = "<?php echo $_SERVER['PHP_SELF']; ?>" method = "post" name = "addclothingform">
                         <fieldset>
                             <legend>
                                 <span class="glyphicon glyphicon-plus">
@@ -118,7 +122,7 @@ echo "hi";
                             <div class = "form-group">
                                 <label for = "lastworn">Last worn</label>
                                 <div class='input-group date' id='datepicker'>
-                                    <input type='text' class="form-control" required placeholder = "MM/DD/YYYY" name = "lastworn"/>
+                                    <input type='text' class="form-control" required placeholder = "YYYY-MM-DD" name = "lastworn"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar">
                                         </span>
@@ -132,7 +136,11 @@ echo "hi";
                             	</button>
                             </div>
                         </fieldset>
-                    </form>
+                    </form> 
+                    <span class = "text-success"><?php if (isset($successmsg)) echo $successmsg; ?>
+                    </span>
+                    <span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?>
+                    </span> 
                 </div>
             </div>
         </div>
