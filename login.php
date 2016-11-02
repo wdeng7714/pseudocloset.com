@@ -60,8 +60,8 @@
 				<!-- menu items -->
 				<div class = "collapse navbar-collapse" id = "navbar">
 					<ul class = "nav navbar-nav navbar-right">
-						<li class = "active"><a href = "login.php">Login</a></li>
-						<li><a href = "register.php">Sign Up</a></li>
+						<li><a href = "register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+						<li class = "active"><a href = "login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					</ul>
 				</div>
 			</div>

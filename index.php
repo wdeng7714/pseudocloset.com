@@ -37,7 +37,8 @@
 						<?php if(isset($_SESSION['userid'])){?>
 							<li>
 								<p class = "navbar-text">
-									Signed in as <?php echo $_SESSION['username'];?>
+									<i class="fa fa-user" aria-hidden="true"></i>
+                                	 <?php echo $_SESSION['username'];?>
 								</p>
 							</li>
 							<li>
