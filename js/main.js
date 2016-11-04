@@ -6,6 +6,9 @@ $( document ).ready(function() {
     	$(this).addClass('active');
 
     	var viewValue = this.getAttribute('id');
+		// $('.viewstage h4').text("view: " + viewValue);
+		if(viewValue != "new")
+			$('#viewstage h4').text("view: " + viewValue);
     	if(viewValue == "all"){
     		$('.thumbnail-item').removeClass("thumbnail-hide");
     	}
@@ -23,14 +26,14 @@ $( document ).ready(function() {
     		$('.thumbnail-item').addClass("thumbnail-hide");
     	}
 
-  //   	if(viewValue != 'new'){
-		// 	$.post( 
+  	 // if(viewValue != 'new'){
+	 // 	$.post( 
 	 //        	"viewcloset.php",{view: viewValue},
 	 //            function(data) {
 	 //            	$('#viewstage').empty().html(data);
 	 //            }
 	 //        );
-		// }
+	 // }
     });
 
     $('.thumbnail').click(function(){
