@@ -6,3 +6,7 @@ body{
 	height: 150px;
 	width: 150px;
 }
+
+.thumbnail-hide{
+	display: none;
+}
