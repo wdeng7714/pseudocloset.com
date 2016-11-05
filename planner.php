@@ -1,6 +1,14 @@
 <?php
 	session_start();
 	include_once "connectdb.php";
+
+	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'];
+	$outfitresult = mysqli_query($con, $outfitquery);
+    $clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'];
+    $clothingresult =mysqli_query($con, $clothingquery);
+    $display=0;
+    $max_per_page=20;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +37,7 @@
 
 				<div class = "collapse navbar-collapse" id = "navbar">
 					<ul class = "nav navbar-nav navbar-right">
-						<?php if(isset($_SESSION['userid'])){?>
+						<?php if(isset($_SESSION['userid'])) { ?>
 							<li>
 								<a href = "viewcloset.php">View closet</a>
 							</li>
@@ -81,28 +89,44 @@
 						<div class ="panel-body">
 							<p> What did you wear today? </p>
 							<div class = "input-group">
-								<span class = "input-group-addon" ><input type = "checkbox" aria-label ="Checkbox for outfit">
+								<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit"aria-label ="radiobutton for outfit" >
 								</span> 
 								<select class = "form-control"> 
 
-								<option disabled selected hidden>Choose an outfit</option>
-								<?php 
-								$query = "SELECT * FROM outfits WHERE userid = '" . $_SESSION['userid']. "'";
-								$result = mysqli_query($con, $query);
-								while ($row = mysqli_fetch_array($result)){
-									echo "<option value = '". $row['id']. "'>". $row['name']. "</option>";
-								}
-								?>
+									<option disabled selected hidden>Choose an outfit</option>
 
+									<?php 
+								
+									while($row = mysqli_fetch_array($outfitresult)){
+									echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+									}
+									?>
 								</select>
-
 							</div>
-							<div class = "col-md-3 thumbnail">
-								<img src="..."/>
-							</div>	
-							<div class = "col-md-3 thumbnail">
-								<img src="..."/>
-							</div>	
+							<div class = "input-group">
+								<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" aria-label ="radiobutton for outfit">
+								</span> 
+								<div class ="form-control">No Outfit</div>
+							</div>
+								
+							
+								
+							<div class ="col-md-12" role = "form">
+							
+								<div class ="row">
+
+									
+									<div class ="col-xs-4">
+										<button type ="button" class ="btn btn-primary btn-radio"> <img src ="http://placehold.it/160x100" class ="img-responsive img-radio"/></button>
+
+									</div>
+									<div class ="col-xs-4">
+										<button type ="button" class ="btn btn-primary btn-radio"> <img src ="http://placehold.it/160x100" class ="img-responsive img-radio"/></button>
+
+									</div>
+								</div>
+							</div>
+							
 							
 						</div>
 						<div class = "panel-footer"> 
