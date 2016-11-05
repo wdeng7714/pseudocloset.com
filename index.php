@@ -63,7 +63,7 @@
                             </li>
 						<?php } else { ?>
 							<li>
-								<a href = "register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+								<a href = "register.php"><span class="glyphicon glyphicon-user"></span> Sign up</a>
 							</li>
 							<li>
 								<a href = "login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a>
@@ -101,11 +101,11 @@
 					</div>
 					<div class = "col-md-4">
 						<ul>
-							<a href = "viewcloset.php" class = "btn btn-default btn-block">View Closet</a>
+							<a href = "viewcloset.php" class = "btn btn-default btn-block">View closet</a>
 							<a href = "planner.php" class = "btn btn-default btn-block">Planner</a>
-							<a class = "btn btn-default btn-block" href = "addclothing.php">Add Clothing
+							<a class = "btn btn-default btn-block" href = "addclothing.php">Add clothing
 							</a>
-							<a href = "laundrybasket.php" class = "btn btn-default btn-block">Laundry Basket
+							<a href = "laundrybasket.php" class = "btn btn-default btn-block">Laundry basket
 							</a>
 						</ul>
 					</div>
@@ -127,7 +127,7 @@
 
 			<footer class="footer">
 				<div class="container">
-					<p class="text-muted text-center">&copy; Copyright Angela Chang and Wendy Deng 2016, All Rights Reserved</p>
+					<p class="text-muted text-center">&copy; Copyright Angela Chang and Wendy Deng 2016, All rights reserved</p>
 				</div>
 			</footer>
 		<?php }?>
