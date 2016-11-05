@@ -110,49 +110,48 @@
 			</div>
 		</div>
 
-			<div class="modal fade" id="item-modal" role="dialog">
-				<div class = "modal-dialog modal-md">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title"></h4>
-						</div>
-						<div class="modal-body">
-							<div class = "container-fluid">	
-								<div class = "row center">
-									<div class = "col-md-6 col-xs-12">
-										<img src = "" class = "item-img center-block"></img>
-									</div>
-									<div class = "col-md-6 col-xs-12 well">
-										<div class = "row">
-	 										<dl>
-	  											<dt class = "col-xs-12">Color</dt>
-	  											<dd class = "col-xs-12 item-color"><p> &nbsp; </p></dd>
-	  											<dt class = "col-xs-12">Times worn</dt>
-	  											<dd class = "item-timesworn col-xs-12"><p></p></dd>
-	  											<dt class = "col-xs-12">Last worn</dt>
-	  											<dd class = "col-xs-12 item-lastworn"><p></p></dd>
-											</dl>
-											<a type = "button" class = "btn btn-primary col-xs-offset-1" id = "edit-button">
-												<span class="glyphicon glyphicon-pencil"></span>
-												Edit
-											</a>
-											<button type = "button" class = "btn btn-danger">
-												<span class="glyphicon glyphicon-trash"></span>
-												Delete
-											</button>
-										</div>
+		<div class="modal fade" id="item-modal" role="dialog">
+			<div class = "modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body">
+						<div class = "container-fluid">	
+							<div class = "row center">
+								<div class = "col-md-6 col-xs-12">
+									<img src = "" class = "item-img center-block"/>
+								</div>
+								<div class = "col-md-6 col-xs-12 well">
+									<div class = "row">
+ 										<dl>
+  											<dt class = "col-xs-12">Color</dt>
+  											<dd class = "col-xs-12 item-color"><p> &nbsp; </p></dd>
+  											<dt class = "col-xs-12">Times worn</dt>
+  											<dd class = "item-timesworn col-xs-12"><p></p></dd>
+  											<dt class = "col-xs-12">Last worn</dt>
+  											<dd class = "col-xs-12 item-lastworn"><p></p></dd>
+										</dl>
+										<a type = "button" class = "btn btn-primary col-xs-offset-1" id = "edit-button">
+											<span class="glyphicon glyphicon-pencil"></span>
+											Edit
+										</a>
+										<button type = "button" class = "btn btn-danger" id = "delete-button">
+											<span class="glyphicon glyphicon-trash"></span>
+											Delete
+										</button>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type = "button" class = "btn btn-success">
-								<i class="fa fa-plus" aria-hidden="true"></i> 
-								Laundry Basket
-							</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div>
+					</div>
+					<div class="modal-footer">
+						<button type = "button" class = "btn btn-success">
+							<i class="fa fa-plus" aria-hidden="true"></i> 
+							Laundry Basket
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>

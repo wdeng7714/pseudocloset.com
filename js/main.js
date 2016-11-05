@@ -57,5 +57,12 @@ $( document ).ready(function() {
     	$('#edit-button').attr('href',"editclothing.php?clothingid=" + id);
     });
 
+    $('#delete-button').click(function(e){
+		var result = confirm("Are you sure you wish to delete this item?");
+		if(result){
+			window.location = "deleteclothing.php?id=" + id;
+		}
+	});
+
 
 });
