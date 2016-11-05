@@ -23,3 +23,12 @@ body{
 .item-hide{
 	display:none;
 }
+
+.item{
+	margin:0 10px;
+}
+.item img{
+  display: block;
+  width: 150px;
+  height: 150px;
+}
