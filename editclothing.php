@@ -15,7 +15,7 @@
 		$url = mysqli_real_escape_string($con, $_POST['url']);
 		$id = mysqli_real_escape_string($con, $_POST['id']);
 
-		$query = "UPDATE clothing SET name = '" . $name . "', type = '" . $type . "', color = '" . $color . "', timesworn = '" . $timesworn . "', lastworn = '" . $lastworn . "', url = '" . $url . "' WHERE id = " . $id;
+		$query = "UPDATE clothing SET name = '" . $name . "', type = '" . $type . "', color = '" . $color . "', timesworn = '" . $timesworn . "', lastworn = '" . $lastworn . "', url = '" . $url . "' WHERE id = " . $id . " AND userid=" . $_SESSION['userid'];
 
 		if(mysqli_query($con, $query)){
 			$successmsg = "Clothing successfully updated. <a href = 'viewcloset.php'>Click here to view closet</a>";			
