@@ -9,24 +9,53 @@
 	$max_items = 10;
 
 	if(isset($_POST['addoutfit'])){
+		$clothingselected = false;
+
+		$duplicate = -1;
+
+		for($i = 0; $i < $max_items; $i++){
+			for($j = 0; $j < $max_items && $j != $i; $j++){
+				if($_POST['item'. $i] != "" && ($_POST['item'. $i] == $_POST['item'. $j])){
+					$duplicate = intval($_POST['item'. $i]);
+				}
+			}
+		}
+
+
+		if($duplicate >= 0){
+			$query = "SELECT * FROM clothing WHERE id=" . $duplicate;
+			$result = mysqli_query($con, $query);
+			if($result){
+				$row = mysqli_fetch_array($result);
+				$itemerror = $row['name'] . " can only be used once";
+			}
+		}
+
 		for ($i = 0 ; $i < $max_items ; $i++){
 			if ($_POST['item' . $i] == ""){
 				$outfit_item[$i] = -1;
 			}
 			else{
+				if($_POST['item' . $i] != "") $clothingselected = true;
 				$outfit_item[$i] = mysqli_real_escape_string($con, $_POST['item' . $i]);
 			}
 		}
-		$userid = $_SESSION['userid'];
-		$name = mysqli_real_escape_string($con, $_POST['name']);
-		
-		$parts = implode(" ", $outfit_item);
-		
-		$query = "INSERT INTO outfits (userid, name, parts) VALUES ('". $userid . "', '" . $name ."', '" . $parts . "')";
-		if (mysqli_query($con, $query)){
-			$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
-		} else{
-			$errormsg = "Clothing was not successfully added. Please try again later.";
+
+		if($clothingselected && $duplicate == -1){
+			$userid = $_SESSION['userid'];
+			$name = mysqli_real_escape_string($con, $_POST['name']);
+			
+			$parts = implode(" ", $outfit_item);
+			
+			$query = "INSERT INTO outfits (userid, name, parts) VALUES ('". $userid . "', '" . $name ."', '" . $parts . "')";
+			if (mysqli_query($con, $query)){
+				$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
+			} else{
+				$errormsg = "Clothing was not successfully added. Please try again later.";
+			}
+		}
+		else if(!$clothingselected){
+			$itemerror = "No clothing items selected";
 		}
 	}
 ?>
@@ -122,7 +151,7 @@
 									<?php echo 'Item ' . ($i + 1); ?> 
 								 </label>
 
-								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control">			
+								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control clothing-item-select">			
 									<option value "" disabled selected hidden> Choose a piece of clothing </option>
 									<optgroup label = "Tops">
 										<?php
@@ -164,7 +193,7 @@
 								<button class = "btn btn-danger" id = "delete-button">
 									<i class = "fa fa-minus"></i> Item
 								</button>
-								<span class = "text-danger text-center pull-right"  id = "max-error"></span>
+								<span class = "text-danger text-center pull-right"  id = "max-error"><?php if(isset($itemerror)) echo $itemerror; ?></span>
 							</div>
 							<div class = "form-group">
 								<button type = "submit" class ="btn btn-default" name = "addoutfit">
