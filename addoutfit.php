@@ -31,13 +31,15 @@
 			}
 		}
 
+		$numparts = 0;
+
 		for ($i = 0 ; $i < $max_items ; $i++){
 			if ($_POST['item' . $i] == ""){
-				$outfit_item[$i] = -1;
 			}
 			else{
 				if($_POST['item' . $i] != "") $clothingselected = true;
-				$outfit_item[$i] = mysqli_real_escape_string($con, $_POST['item' . $i]);
+				$outfit_item[$numparts] = mysqli_real_escape_string($con, $_POST['item' . $i]);
+				$numparts++;
 			}
 		}
 
@@ -47,7 +49,7 @@
 			
 			$parts = implode(" ", $outfit_item);
 			
-			$query = "INSERT INTO outfits (userid, name, parts) VALUES ('". $userid . "', '" . $name ."', '" . $parts . "')";
+			$query = "INSERT INTO outfits (userid, name, parts, numparts) VALUES ('". $userid . "', '" . $name ."', '" . $parts . "', '" . $numparts ."')";
 			if (mysqli_query($con, $query)){
 				$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
 			} else{
