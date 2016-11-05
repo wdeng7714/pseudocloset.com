@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home | PseudoCloset</title>
+		<title>Planner | PseudoCloset</title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
@@ -72,8 +72,46 @@
 			</div>
 		</nav>
 
+		<h2 class = "page-header text-center"> Outfit planner </h2>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-md-8 col-md-offset-2">
+					<div class = "panel panel-info">
+						<div class ="panel-heading"> Today's Outfit </div>
+						<div class ="panel-body">
+							<p> What did you wear today? </p>
+							<div class = "input-group">
+								<span class = "input-group-addon" ><input type = "checkbox" aria-label ="Checkbox for outfit">
+								</span> 
+								<select class = "form-control"> 
 
+								<option disabled selected hidden>Choose an outfit</option>
+								<?php 
+								$query = "SELECT * FROM outfits WHERE userid = '" . $_SESSION['userid']. "'";
+								$result = mysqli_query($con, $query);
+								while ($row = mysqli_fetch_array($result)){
+									echo "<option value = '". $row['id']. "'>". $row['name']. "</option>";
+								}
+								?>
 
+								</select>
+
+							</div>
+							<div class = "col-md-3 thumbnail">
+								<img src="..."/>
+							</div>	
+							<div class = "col-md-3 thumbnail">
+								<img src="..."/>
+							</div>	
+							
+						</div>
+						<div class = "panel-footer"> 
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
