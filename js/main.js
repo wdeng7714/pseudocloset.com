@@ -1,3 +1,4 @@
+
 $( document ).ready(function() {
     $('#all').addClass('active');
 
@@ -50,6 +51,43 @@ $( document ).ready(function() {
     	$('.modal-body .item-img').attr('src',url);
     	$('.item-lastworn p').text(lastworn);
     	$('.item-timesworn p').text(timesworn);
+    });
+
+
+
+    // addoutfit.php 
+    $('.outfit-item').addClass('item-hide');
+    var minitems = 2;
+    var numitems = minitems;
+    for(var i  = 0; i < numitems; ++i) {
+        $('[name = "item-group' + i + '"]').removeClass("item-hide");
+    }
+
+
+    $('#delete-button').prop('disabled', true);
+
+    $('#add-button').click(function(e){
+        e.preventDefault();
+        numitems++;
+        $('#delete-button').prop('disabled',false);
+        $('[name = "item-group' + (numitems - 1) + '"]').removeClass("item-hide");
+        if(numitems >= maxitems){
+            $("#max-error").text("Sorry you have reached the limit");
+            $('#add-button').prop('disabled',true);
+        }
+
+    });
+
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#add-button').prop('disabled',false);
+        $("#max-error").text("");
+        $('[name = "item-group' + (numitems - 1) + '"]').addClass("item-hide");
+        numitems--;
+
+        if(numitems <= minitems){
+            $('#delete-button').prop('disabled',true);
+        }         
     });
 
 

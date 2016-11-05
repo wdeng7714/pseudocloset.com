@@ -6,7 +6,7 @@
 	include_once "connectdb.php";
 
 	$error = false;
-	$item_counter = 0;
+	$max_items = 10;
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,16 +90,17 @@
 							</legend>
 							<div class ="form-group">
 								<label for = "name">Name of outfit </label>
-								<input type ="text" name = "name" placeholder = "Blue Plaid" required value = "<?php if($error) echo $name; ?>" class = "form-control"?>
+								<input type ="text" name = "name" placeholder = "Blue plaid" required value = "<?php if($error) echo $name; ?>" class = "form-control"?>
 								<span class = "text-danger"> <?php if(isset($name_error)) echo $name_error; ?>
 								</span>
 							</div>
-							<?php for ($i = 0; $i < 2; $i++){ ?>
-							<div class = "form-group">
-								<label for =<?php echo '"item'. $item_counter . '">Item ' . ($item_counter + 1); ?>
+							<?php for ($i = 0; $i < $max_items; $i++){ ?>
+							<div class = "form-group outfit-item" name = <?php echo '"item-group'. $i . '"'; ?> >
+								<label for ="<?php echo 'item' . $i; ?>" >
+									<?php echo 'Item ' . ($i + 1); ?> 
 								 </label>
 
-								<select name =<?php echo '"item'. $item_counter . '"'; ?> class = "form-control">					
+								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control">					
 									<optgroup label = "Tops">
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket')";
@@ -131,25 +132,36 @@
 										?>
 									</optgroup>					
 								</select>
-								<?php $item_counter++ ?>
 							</div>
 							<?php }?>
 							<div class = "form-group">
-							<div class ="btn btn-success"> Add another item </div>
-
+								<button type="button" class ="btn btn-success" id = "add-button">
+									<i class = "fa fa-plus"></i> Item
+								</button>
+								<button class = "btn btn-danger" id = "delete-button">
+									<i class = "fa fa-minus"></i> Item
+								</button>
+								<span class = "text-danger text-center pull-right"  id = "max-error"></span>
 							</div>
-							<div class ="btn btn-default">
-								Submit outfit
+							<div class = "form-group">
+								<button type = "submit" class ="btn btn-default" name = "addoutfit">
+									Submit outfit
+								</button>
+								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
+									Discard outfit
+								</a>
 							</div>
-							<div class ="btn btn-default pull-right">
-								Discard outfit
-							</div>
-							
 						</fieldset>
+					</form>
 				</div>
 			</div>
 		</div>
+		<script type = "text/javascript">
+			var maxitems= <?php echo json_encode($max_items); ?>;
+		</script>
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src = "js/main.js"></script>
+
 	</body>
 </html>

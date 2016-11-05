@@ -19,3 +19,7 @@ body{
 .modal-body .well{
 	height: 230px;
 }
+
+.item-hide{
+	display:none;
+}
