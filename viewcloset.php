@@ -2,7 +2,7 @@
 	session_start();
 	include_once "connectdb.php";
 	if (!isset($_SESSION['userid'])){
-		header("Location: register.php");
+		header("Location: index.php");
 	}
 
 	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
