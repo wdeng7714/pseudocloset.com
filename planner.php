@@ -1,6 +1,10 @@
 <?php
 	session_start();
 	include_once "connectdb.php";
+	if (!isset($_SESSION['userid'])){
+		header("Location: index.php");
+	}
+
 
 	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'];
 	$outfitresult = mysqli_query($con, $outfitquery);
@@ -85,49 +89,55 @@
 			<div class = "row">
 				<div class = "col-md-8 col-md-offset-2">
 					<div class = "panel panel-info">
-						<div class ="panel-heading"> Today's Outfit </div>
+						<div class ="panel-heading">
+							Today's Outfit
+						</div>
 						<div class ="panel-body">
-							<p> What did you wear today? </p>
-							<div class = "input-group">
-								<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit"aria-label ="radiobutton for outfit" >
-								</span> 
-								<select class = "form-control"> 
+							<div class = "form-group">
+								<label for = "inputchoice">What did you wear today?</label>
+								<div class = "row">
+									<div class = "col-sm-6">
+										<div class = "input-group" name = "inputchoice">
+											<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" aria-label ="radiobutton for outfit" >
+											</span> 
+											<select class = "form-control"> 
 
-									<option disabled selected hidden>Choose an outfit</option>
+												<option disabled selected hidden>Choose an outfit</option>
 
-									<?php 
-								
-									while($row = mysqli_fetch_array($outfitresult)){
-									echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
-									}
-									?>
-								</select>
+												<?php 
+											
+												while($row = mysqli_fetch_array($outfitresult)){
+												echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+												}
+												?>
+											</select>
+										</div>
+									</div>
+									<div class = "col-sm-6">
+										<div class = "input-group" name = "inputchoice">
+											<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" aria-label ="radiobutton for outfit">
+											</span> 
+											<div class ="form-control">No Outfit</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class = "input-group">
-								<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" aria-label ="radiobutton for outfit">
-								</span> 
-								<div class ="form-control">No Outfit</div>
-							</div>
-								
 							
 								
 							<div class ="col-md-12" role = "form">
 							
 								<div class ="row">
 
+									<?php
+										while($row = mysqli_fetch_array($clothingresult) and $display < $max_per_page){
+											$display++;
+
+											echo '<a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a>';
+										}
+									?>
 									
-									<div class ="col-xs-4">
-										<button type ="button" class ="btn btn-primary btn-radio"> <img src ="http://placehold.it/160x100" class ="img-responsive img-radio"/></button>
-
-									</div>
-									<div class ="col-xs-4">
-										<button type ="button" class ="btn btn-primary btn-radio"> <img src ="http://placehold.it/160x100" class ="img-responsive img-radio"/></button>
-
-									</div>
 								</div>
-							</div>
-							
-							
+							</div>		
 						</div>
 						<div class = "panel-footer"> 
 
