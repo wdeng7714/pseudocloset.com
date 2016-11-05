@@ -85,7 +85,7 @@
 		<div class = "container"> 
 			<div class ="row" >
 				<div class = "col-lg-12">
-					<h2 class = "text-center page-header">Closet View </h2>
+					<h2 class = "text-center page-header">Closet view </h2>
 				</div>
 				<div class = "col-md-12">
 					<div class = "btn-group btn-group-justified" id = "views">
@@ -103,25 +103,54 @@
 					<?php
 						while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
 							$display++;
-							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item"><a href = "#itemmodal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
 						}
 					?>
 				</div>
 			</div>
 		</div>
 
-			<div class="modal fade" id="itemmodal" role="dialog">
-				<div class = "modal-dialog">
+			<div class="modal fade" id="item-modal" role="dialog">
+				<div class = "modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h4 class="modal-title"></h4>
 						</div>
 						<div class="modal-body">
-							<img src = "" class = "img-responsive center-block"></img>
-							<p></p>
+							<div class = "container-fluid">	
+								<div class = "row center">
+									<div class = "col-md-6 col-xs-12">
+										<img src = "" class = "item-img center-block"></img>
+									</div>
+									<div class = "col-md-6 col-xs-12 well">
+										<div class = "row">
+	 										<dl>
+	  											<dt class = "col-xs-12">Color</dt>
+	  											<dd class = "col-xs-12 item-color"><p> &nbsp; </p></dd>
+	  											<dt class = "col-xs-12">Times worn</dt>
+	  											<dd class = "item-timesworn col-xs-12"><p></p></dd>
+	  											<dt class = "col-xs-12">Last worn</dt>
+	  											<dd class = "col-xs-12 item-lastworn"><p></p></dd>
+											</dl>
+											<button type = "button" class = "btn btn-primary col-xs-offset-1">
+												<span class="glyphicon glyphicon-pencil"></span>
+												Edit
+											</button>
+											<button type = "button" class = "btn btn-danger">
+												<span class="glyphicon glyphicon-trash"></span>
+												Delete
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
+							<button type = "button" class = "btn btn-success">
+								<i class="fa fa-plus" aria-hidden="true"></i> 
+								Laundry Basket
+							</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
