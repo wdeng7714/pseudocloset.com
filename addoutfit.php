@@ -17,11 +17,12 @@
 				$outfit_item[$i] = mysqli_real_escape_string($con, $_POST['item' . $i]);
 			}
 		}
+		$userid = $_SESSION['userid'];
 		$name = mysqli_real_escape_string($con, $_POST['name']);
 		
 		$parts = implode(" ", $outfit_item);
 		
-		$query = "INSERT INTO outfits (name, parts) VALUES ('". $name ."', '" . $parts . "')";
+		$query = "INSERT INTO outfits (userid, name, parts) VALUES ('". $userid . "', '" . $name ."', '" . $parts . "')";
 		if (mysqli_query($con, $query)){
 			$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
 		} else{
@@ -32,7 +33,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home | PseudoCloset</title>
+		<title>Add outfit | PseudoCloset</title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
