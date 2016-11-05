@@ -130,7 +130,7 @@
                                     <option>pants</option>
                                     <option>socks</option>
                                     <option>jacket</option>
-                                </select>
+                                </select>   
                             </div>
                             <div class = "form-group">
                                 <label for = "color">Color</label>
