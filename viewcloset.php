@@ -8,10 +8,14 @@
 	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
 	$result = mysqli_query($con, $query);
 
-	$display=0;
+	$item_display=0;
 	$max_per_page = 20;
 	$result_copy = $result;
 
+	$outfit_display = 0;
+	$outfit_query = "SELECT * FROM outfits WHERE userid = " . $_SESSION['userid'];
+	$outfit_result = mysqli_query($con, $outfit_query);
+	$max_outfit_per_page = 10;
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,8 +24,16 @@
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
+		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.carousel.css" type="text/css"/>
+		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.theme.css" type="text/css"/>
+		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.transitions.css" type="text/css"/>
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/> 
 		<link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
+
+		<script src = "vendor/jquery/jquery-2.1.1.min.js"></script>
+        <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
+        <script src = "js/main.js"></script>
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
@@ -101,11 +113,50 @@
 				<div class = "col-lg-12" id = "viewstage">
 					<h4>View: all</h4>
 					<?php
-						while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
-							$display++;
+						while ($row = mysqli_fetch_array($result_copy) and $item_display<$max_per_page){
+							$item_display++;
 							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
 						}
 					?>
+
+					<div class = "outfits-gallery thumbnail-hide">
+						<?php
+							while ($outfit_row = mysqli_fetch_array($outfit_result)){
+								$outfit_display++;
+						?>
+							<div class = "col-md-8 col-md-offset-2">
+								<div class = "panel panel-default">
+									<div class ="panel-heading clearfix">
+										<h5 class = "pull-left"><?php echo $outfit_row['name']; ?></h5>
+										<div class = "pull-right">
+											<a type = "button" class = "btn btn-default" id = "edit-outfit-button">
+												<span class="glyphicon glyphicon-pencil"></span>
+											</a>
+											<button type = "button" class = "btn btn-default" id = "delete-outfit-button">
+												<span class="glyphicon glyphicon-trash"></span>
+											</button>
+										</div>
+									</div>
+									<div class ="panel-body">
+										<div class = "owl-carousel col-md-12">											
+											<?php
+												$parts = explode(" ", $outfit_row['parts']);
+												for($i = 0; $i < $outfit_row['numparts']; $i++){
+													$query = "SELECT * FROM clothing WHERE id=" . $parts[$i];
+													$result = mysqli_query($con, $query);
+													if($result){
+														$row = mysqli_fetch_array($result);
+														echo '<div class = "item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+													}
+												}
+											?>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						<?php } ?>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -156,9 +207,5 @@
 				</div>
 			</div>
 		</div>
-
-		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
-        <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src = "js/main.js"></script>
 	</body>
 </html>
