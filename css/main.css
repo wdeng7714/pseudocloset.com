@@ -13,6 +13,7 @@ body{
 
 .item-img{
 	height: 230px;
+	max-width: 100%;
 }
 
 .modal-body .well{
