@@ -10,3 +10,11 @@ body{
 .thumbnail-hide{
 	display: none;
 }
+
+.item-img{
+	height: 230px;
+}
+
+.modal-body .well{
+	height: 230px;
+}

@@ -40,14 +40,16 @@ $( document ).ready(function() {
     	// $('.modal-body').empty();
     	var name = $(this).attr('name');
     	var url = $(this).attr('url');
-    	var color = $(this).attr('color');
+    	var color = "#" + $(this).attr('color');
     	var timesworn = $(this).attr('timesworn');
     	var lastworn = $(this).attr('lastworn'); 
     	var type = $(this).attr('type');
 
     	$('.modal-title').text(name);
-
-    	$('.modal-body .img-responsive').attr('src',url);
+    	$('.item-color p').css('background-color', color);
+    	$('.modal-body .item-img').attr('src',url);
+    	$('.item-lastworn p').text(lastworn);
+    	$('.item-timesworn p').text(timesworn);
     });
 
 
