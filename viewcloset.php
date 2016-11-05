@@ -137,7 +137,7 @@
 											<span class="glyphicon glyphicon-pencil"></span>
 											Edit
 										</a>
-										<button type = "button" class = "btn btn-danger" id = "delete-button">
+										<button type = "button" class = "btn btn-danger" id = "delete-clothing-button">
 											<span class="glyphicon glyphicon-trash"></span>
 											Delete
 										</button>
