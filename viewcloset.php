@@ -103,7 +103,7 @@
 					<?php
 						while ($row = mysqli_fetch_array($result_copy) and $display<$max_per_page){
 							$display++;
-							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
 						}
 					?>
 				</div>
@@ -133,10 +133,10 @@
 	  											<dt class = "col-xs-12">Last worn</dt>
 	  											<dd class = "col-xs-12 item-lastworn"><p></p></dd>
 											</dl>
-											<button type = "button" class = "btn btn-primary col-xs-offset-1">
+											<a type = "button" class = "btn btn-primary col-xs-offset-1" id = "edit-button">
 												<span class="glyphicon glyphicon-pencil"></span>
 												Edit
-											</button>
+											</a>
 											<button type = "button" class = "btn btn-danger">
 												<span class="glyphicon glyphicon-trash"></span>
 												Delete
