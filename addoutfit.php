@@ -7,6 +7,27 @@
 
 	$error = false;
 	$max_items = 10;
+
+	if(isset($_POST['addoutfit'])){
+		for ($i = 0 ; $i < $max_items ; $i++){
+			if ($_POST['item' . $i] == ""){
+				$outfit_item[$i] = -1;
+			}
+			else{
+				$outfit_item[$i] = mysqli_real_escape_string($con, $_POST['item' . $i]);
+			}
+		}
+		$name = mysqli_real_escape_string($con, $_POST['name']);
+		
+		$parts = implode(" ", $outfit_item);
+		
+		$query = "INSERT INTO outfits (name, parts) VALUES ('". $name ."', '" . $parts . "')";
+		if (mysqli_query($con, $query)){
+			$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
+		} else{
+			$errormsg = "Clothing was not successfully added. Please try again later.";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -100,14 +121,15 @@
 									<?php echo 'Item ' . ($i + 1); ?> 
 								 </label>
 
-								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control">					
+								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control">			
+									<option value "" disabled selected hidden> Choose a piece of clothing </option>
 									<optgroup label = "Tops">
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket')";
 											echo $query;
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)){
-												echo "<option>" . $row["name"] . "</option>";
+												echo "<option value = '" . $row['id'] . "'>" . $row["name"] . "</option>";
 											}
 										?>
 									</optgroup>
@@ -117,7 +139,7 @@
 											echo $query;
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)){
-												echo "<option>" . $row["name"] . "</option>";
+												echo "<option value = '" .$row['id'] ."'>" . $row["name"] . "</option>";
 											}
 										?>
 									</optgroup>
@@ -127,7 +149,7 @@
 											echo $query;
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)){
-												echo "<option>" . $row["name"] . "</option>";
+												echo "<option value = '" . $row['id'] ."'>" . $row["name"] . "</option>";
 											}
 										?>
 									</optgroup>					
@@ -147,6 +169,10 @@
 								<button type = "submit" class ="btn btn-default" name = "addoutfit">
 									Submit outfit
 								</button>
+								<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
+								</span>
+								<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
+								</span>
 								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
 									Discard outfit
 								</a>
