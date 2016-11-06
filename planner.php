@@ -299,6 +299,36 @@
 				items: 3
 			});
 		</script>
+		<script>
+			$('#today-button').click(function(){
+			    if($('[name = "radio-outfit"]:checked').val() === "yes"){
+			        if($('#outfit-selection').val() === null){
+			            $('#outfit-selection-error').text("Please select an outfit");
+			        }
+			        else{
+			            var outfitid = $('#outfit-selection').val();
+			            window.location.href = "planner.php?outfitselectionid=" + outfitid;
+			        }
+			    }else{
+			        var parts = "";
+			        var counter = 0;
+
+			        $('.icon-check').each(function(){
+			            counter++;
+			            parts += ($(this).attr("id")).substring(8) + " "; 
+			        })
+			        if(counter<2){
+			            $('#outfit-selection-error').text("Please select at least 2 article of clothing");
+			        }
+			        else if(counter > 10){
+			            $('#outfit-selection-error').text("Please only select up to 10 items at once");
+			        }
+			        else{
+			            window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
+			        }
+			    }
+			})
+		</script>
 
 	</body>
 </html>
