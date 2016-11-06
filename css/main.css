@@ -38,3 +38,7 @@ body{
 	border: 1px solid #ddd;
 	color: #31708f;
 }
+
+.collapsible{
+	padding: 0;
+}
