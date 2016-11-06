@@ -190,10 +190,10 @@
 							<?php }?>
 							<div class = "form-group">
 								<button type="button" class ="btn btn-success" id = "add-button">
-									<i class = "fa fa-plus"></i> Item
+									<i class="icon-plus"></i> Item
 								</button>
 								<button class = "btn btn-danger" id = "delete-button">
-									<i class = "fa fa-minus"></i> Item
+									<i class="icon-minus"></i></i> Item
 								</button>
 								<span class = "text-danger text-center pull-right"  id = "max-error"><?php if(isset($itemerror)) echo $itemerror; ?></span>
 							</div>

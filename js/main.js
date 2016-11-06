@@ -36,7 +36,7 @@ $( document ).ready(function() {
 
     $('.owl-carousel').owlCarousel({
 	    loop: true,
-	    items: 2})
+	    items: 3})
 
     // global variables
     var name;
@@ -47,7 +47,7 @@ $( document ).ready(function() {
     var type;
     var id;
 
-    $('.thumbnail').click(function(){
+    $('#viewstage .thumbnail').click(function(){
     	// $('.modal-body').empty();
     	name = $(this).attr('name');
     	url = $(this).attr('url');
@@ -108,5 +108,14 @@ $( document ).ready(function() {
             $('#delete-button').prop('disabled',true);
         }         
     });
+
+    // planner
+ 
+     $('.planner-item .thumbnail').click(function(){
+        // $(this).toggleClass("active");
+        $('#checkbox' + $(this).attr("id")).toggleClass("icon-check-empty");
+        $('#checkbox' + $(this).attr("id")).toggleClass("icon-check");
+    })
+
 
 });
