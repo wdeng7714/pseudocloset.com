@@ -216,10 +216,10 @@
 								<div class ="panel-heading clearfix">
 									<h5 class = "pull-left">Your outfit for <?php echo $plans_row['date'] . " is ". $plans_row['name']; ?> </h5>
 									<div class = "pull-right">
-										<a href = "editplan.php?id="<?php echo $outfit_row['id'] ?>  type = "button" class = "btn btn-default" id = "edit-outfit-button">
+										<a href = "editplan.php?planid=<?php echo $plans_row['id']; ?>"  type = "button" class = "btn btn-default" id = "edit-plan-button">
 											<span class="glyphicon glyphicon-pencil"></span>
 										</a>
-										<button type = "button" class = "btn btn-default" id = "delete-outfit-button">
+										<button type = "button" class = "delete-plan-button btn btn-default" planid = "<?php echo $plans_row['id'];?>">
 											<span class="glyphicon glyphicon-trash"></span>
 										</button>
 									</div>
@@ -254,7 +254,7 @@
 						<h4 class="modal-title"></h4>
 					</div>
 					<div class="modal-body">
-						<div class = "container-fluid">	
+						<div class = "container-fluid">
 							<div class = "row center">
 								<div class = "col-md-6 col-xs-12">
 									<img src = "" class = "item-img center-block"/>
