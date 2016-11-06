@@ -169,9 +169,14 @@
                                 <select name = "type" class = "form-control">
                                     <option <?php if($row['type'] == 'sweater') echo "selected"; ?> >sweater</option>
                                     <option <?php if($row['type'] == 'shirt') echo "selected"; ?> >shirt</option>
+                                    <option <?php if($row['type'] == 'dress') echo "selected"; ?> >dress</option>
+                                    <option <?php if($row['type'] == 'skirt') echo "selected"; ?> >skirt</option>
+                                    <option <?php if($row['type'] == 'jacket') echo "selected"; ?> >jacket</option>
                                     <option <?php if($row['type'] == 'pants') echo "selected"; ?> >pants</option>
                                     <option <?php if($row['type'] == 'socks') echo "selected"; ?> >socks</option>
-                                    <option <?php if($row['type'] == 'jacket') echo "selected"; ?> >jacket</option>
+                                    <option <?php if($row['type'] == 'shoes') echo "selected"; ?> >shoes</option>
+                                    <option <?php if($row['type'] == 'accessories') echo "selected"; ?> >accessories</option>
+                                   
                                 </select>   
                             </div>
                             <div class = "form-group">
