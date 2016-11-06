@@ -136,10 +136,11 @@
 		</nav>
 		<div class = "container">
 			<div class = "row">
-				<div class = "col-md-12">
-					<h2 class = "page-header text-center">New Plan</h2>
-				</div>
 				<div class ="col-md-8 col-md-offset-2 well">
+					<legend>
+						 <span class="glyphicon glyphicon-plus"></span>
+                        Add clothing
+					</legend>
 					<div class = "form-group">
 						<label for = "datechoice">Choose a date</label>
 						<div class = "input-group date" id = 'datepicker'>
@@ -163,7 +164,7 @@
 
 										<?php 
 										while($row = mysqli_fetch_array($outfitresult)){
-										echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+											echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
 										}
 										?>
 									</select>
