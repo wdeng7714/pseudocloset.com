@@ -32,3 +32,8 @@ body{
   width: 150px;
   height: 150px;
 }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color:black;
+    background-color:#e1e1e1;
+}
