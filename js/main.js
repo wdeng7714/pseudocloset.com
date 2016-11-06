@@ -18,14 +18,20 @@ $( document ).ready(function() {;
     		$('.thumbnail-item').addClass("thumbnail-hide");
     		$('[type = "sweater"').parents().removeClass("thumbnail-hide");
     		$('[type = "shirt"').parents().removeClass("thumbnail-hide");
+            $('[type = "jacket"]').parents().removeClass("thumbnail-hide");
+            $('[type = "dress"]').parents().removeClass("thumbnail-hide");
     		$('.outfits-gallery').addClass("thumbnail-hide");
     	}else if(viewValue == "bottoms"){
 			$('.thumbnail-item').addClass("thumbnail-hide");
 			$('[type = "pants"').parents().removeClass("thumbnail-hide");
+            $('[type = "dress"]').parents().removeClass("thumbnail-hide");
+            $('[type = "skirt"]').parents().removeClass("thumbnail-hide");
 			$('.outfits-gallery').addClass("thumbnail-hide");
     	}else if(viewValue == "misc"){
     		$('.thumbnail-item').addClass("thumbnail-hide");
+            $('[type = "shoes"]').parents().removeClass("thumbnail-hide");
     		$('[type = "socks"').parents().removeClass("thumbnail-hide");
+            $('[type = "accessories"]').parents().removeClass("thumbnail-hide");
     		$('.outfits-gallery').addClass("thumbnail-hide");
     	}else if(viewValue == "outfits"){
     		$('.thumbnail-item').addClass("thumbnail-hide");
@@ -151,5 +157,39 @@ $( document ).ready(function() {;
             }
         }
     })
+    // addplan
+     $('#addplan').click(function(){
+                var date = $('[name = datechoice]').val();
+                if(date === ""){
+                    $('#outfit-selection-error').text("Date cannot be empty");
+                }else{
+                    if($('[name = "radio-outfit"]:checked').val() === "yes"){
+                        if($('#outfit-selection').val() === null){
+                            $('#outfit-selection-error').text("Please select an outfit");
+                        }
+                        else{
+                            var outfitid = $('#outfit-selection').val();           
+                            window.location.href = "addplan.php?outfitselectionid=" + outfitid +"&date=" + date;
+                        }
+                     }else{
+                        var parts = "";
+                        var counter = 0;
+
+                        $('.icon-check').each(function(){
+                            counter++;
+                            parts += ($(this).attr("id")).substring(8) + " "; 
+                        })
+                        if(counter <2){
+                            $('#outfit-selection-error').text("Please select at least 2 article of clothing");
+                        }
+                        else if(counter > 10){
+                            $('#outfit-selection-error').text("Please only select up to 10 items at once");
+                        }
+                        else{
+                            window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
+                        }
+                    }
+                }
+        })
     
 });
