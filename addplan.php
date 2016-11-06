@@ -25,6 +25,14 @@
         <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
         <script src = "js/main.js"></script>
+        <script src = "vendor/datepicker/locales.js"></script>
+        <script src = "vendor/datepicker/datepicker.js"></script>
+        <script src = "vendor/jscolor/jscolor.js"></script>
+        <script type = "text/javascript">
+        	$('#datepicker').datetimepicker({
+				format: 'YYYY-MM-DD'
+    		});
+    	</script>
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
@@ -87,13 +95,49 @@
 		</nav>
 		<div class = "container">
 			<div class = "row">
+				<div class = "col-md-12">
+					<h2 class = "page-header text-center">New Plan</h2>
+				</div>
 				<div class ="col-md-8 col-md-offset-2">
-							
-								
-									
-						
-					<form role = "form" action ="<?php  echo $_SERVER['PHP_SELF']; ?>" method = "post" name  = "addplanform">
+					<div class = "form-group">
+						<label for = "datechoice">Choose a date</label>
+						<div class = "input-group date" id = 'datepicker'>
+							<input type = "text" class = "form-control" requrired placeholder = "YYYY-MM-DD" name = "datechoice"/>
+							<span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                        </div>
+					</div>
+					<div class = "form-group">
+						<label for = "inputchoice">From outfit or from scratch?</label>
+						<div class = "row">
+							<div class = "col-sm-6">
+								<div class = "input-group" name = "inputchoice">
+									<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" value = "yes" aria-label ="radiobutton for outfit" checked>
+									</span> 
+									<select id = "outfit-selection" class = "form-control" > 
 
+										<option value = "" disabled selected hidden>Choose an outfit</option>
+
+										<?php 
+										while($row = mysqli_fetch_array($outfitresult)){
+										echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+										}
+										?>
+									</select>
+								</div>
+							</div>
+							<div class = "col-sm-6">
+								<div class = "input-group" name = "inputchoice">
+									<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" value = "no" aria-label ="radiobutton for outfit">
+									</span> 
+									<div class ="form-control">No Outfit</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class = "collapse collapsible">
 						<div class ="owl-carousel col-md-12 ">
 							<?php
 								while($row = mysqli_fetch_array($clothingresult)){
@@ -103,7 +147,7 @@
 								}
 							?>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

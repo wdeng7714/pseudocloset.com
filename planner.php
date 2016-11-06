@@ -136,7 +136,7 @@
 					<h2 class = "page-header text-center"> Outfit planner </h2>
 				</div>
 				<div class = "col-md-8 col-md-offset-2  <?php if(mysqli_num_rows($todayresult) > 0) echo "item-hide";?>">
-					<div class = "panel panel-iformnfo">
+					<div class = "panel panel-info">
 						<div class ="panel-heading">
 							Today's Outfit
 						</div>
