@@ -100,14 +100,16 @@
 					<h2 class = "text-center page-header">Closet view </h2>
 				</div>
 				<div class = "col-md-12">
-					<div class = "btn-group btn-group-justified" id = "views">
-						<a href ="#" class= "btn btn-default" id = "all"> All </a>
-						<a href ="#" class= "btn btn-default" id = "outfits"> Outfits </a>
-						<a href ="#" class= "btn btn-default" id = "tops"> Tops </a>
-						<a href ="#" class= "btn btn-default" id = "bottoms"> Bottoms </a>
-						<a href ="#" class= "btn btn-default" id = "misc"> Misc </a>
-						<a href ="addclothing.php" class= "btn btn-default" id = "new"> <i class="icon-plus"></i></a>
-					</div>
+
+					<!-- Centered Pills -->
+					<ul class="nav nav-pills nav-justified" id = "views" >
+						<li id = "all"><a href ="#" class= "" >All</a></li>
+						<li id = "outfits"><a href ="#" class= "">Outfits</a></li>
+						<li id = "tops"><a href ="#" class= "" >Tops</a></li>
+						<li id = "bottoms"><a href ="#" class= "" >Bottoms</a></li>
+						<li id = "misc"><a href ="#" class= "" >Misc</a></li>
+						<li  id = "new"><a href ="addclothing.php" class= ""> <i class="icon-plus"></i></a></li>
+					</ul>
 				</div>
 
 				<div class = "col-lg-12" id = "viewstage">
@@ -129,7 +131,7 @@
 									<div class ="panel-heading clearfix">
 										<h5 class = "pull-left"><?php echo $outfit_row['name']; ?></h5>
 										<div class = "pull-right">
-											<a type = "button" class = "btn btn-default" id = "edit-outfit-button">
+											<a href = "editoutfit.php?id="<?php echo $outfit_row['id'] ?>  type = "button" class = "btn btn-default" id = "edit-outfit-button">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</a>
 											<button type = "button" class = "btn btn-default" id = "delete-outfit-button">
@@ -207,5 +209,12 @@
 				</div>
 			</div>
 		</div>
+
+		<script>
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				items: 3
+			});
+		</script>
 	</body>
 </html>

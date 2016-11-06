@@ -1,9 +1,9 @@
 
-$( document ).ready(function() {
+$( document ).ready(function() {;
     $('#all').addClass('active');
 
-    $('#views a').click(function(){
-       	$('#views a').removeClass('active');
+    $('#views li').click(function(){
+       	$('#views li').removeClass('active');
     	$(this).addClass('active');
 
     	var viewValue = this.getAttribute('id');
@@ -33,10 +33,6 @@ $( document ).ready(function() {
     	}
 
     });
-
-    $('.owl-carousel').owlCarousel({
-	    loop: true,
-	    items: 3})
 
     // global variables
     var name;
@@ -72,6 +68,7 @@ $( document ).ready(function() {
 			window.location = "deleteclothing.php?id=" + id;
 		}
 	});
+
 
 
     // addoutfit.php 
