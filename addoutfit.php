@@ -43,7 +43,7 @@
 			}
 		}
 
-		if($clothingselected && $duplicate == -1){
+		if($numparts >= 2 && $duplicate == -1){
 			$userid = $_SESSION['userid'];
 			$name = mysqli_real_escape_string($con, $_POST['name']);
 			
@@ -53,11 +53,11 @@
 			if (mysqli_query($con, $query)){
 				$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
 			} else{
-				$errormsg = "Clothing was not successfully added. Please try again later.";
+				$errormsg = "Clothing was not successfully added. Please try again later";
 			}
 		}
-		else if(!$clothingselected){
-			$itemerror = "No clothing items selected";
+		else if($numparts < 2){
+			$itemerror = "Please select a minimum of 2 items";
 		}
 	}
 ?>
@@ -154,7 +154,7 @@
 								 </label>
 
 								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control clothing-item-select">			
-									<option value = "" disabled selected hidden> Choose a piece of clothing </option>
+									<option value "" disabled selected hidden> Choose a piece of clothing </option>
 									<optgroup label = "Tops">
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket')";
@@ -201,25 +201,26 @@
 								<button type = "submit" class ="btn btn-default" name = "addoutfit">
 									Submit outfit
 								</button>
+								<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
+								</span>
+								<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
+								</span>
 								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
 									Discard outfit
 								</a>
 							</div>
 						</fieldset>
 					</form>
-					<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
-					</span>
-					<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
-					</span>
 				</div>
 			</div>
 		</div>
-		<script type = "text/javascript">
-			var maxitems= <?php echo json_encode($max_items); ?>;
-		</script>
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src = "js/main.js"></script>
-
+		<script type = "text/javascript">
+			var maxitems= <?php echo json_encode($max_items); ?>;
+			var numitems = 2;
+			$('#delete-button').prop('disabled', true);
+		</script>
 	</body>
 </html>

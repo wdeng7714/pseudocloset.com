@@ -34,6 +34,7 @@ body{
 }
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-    color:black;
-    background-color:#e1e1e1;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	color: #31708f;
 }

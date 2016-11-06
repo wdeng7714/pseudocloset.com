@@ -43,37 +43,46 @@
 			}
 		}
 
-		if($clothingselected && $duplicate == -1){
+		if($numparts>=2 && $duplicate == -1){
 			$userid = $_SESSION['userid'];
 			$name = mysqli_real_escape_string($con, $_POST['name']);
-			
+			$id = mysqli_real_escape_string($con, $_POST['id']);
+
 			$parts = implode(" ", $outfit_item);
-			
-			$query = "INSERT INTO outfits (userid, name, parts, numparts) VALUES ('". $userid . "', '" . $name ."', '" . $parts . "', '" . $numparts ."')";
+
+			$query = "UPDATE outfits SET name = '" . $name ."', parts='" . $parts ."', numparts=" .$numparts." WHERE id = " . $id . " AND userid=" . $_SESSION['userid'];
+
 			if (mysqli_query($con, $query)){
 				$successmsg = "Outfit successfully added. <a href = 'viewcloset.php'>Click here to view closet </a>";
 			} else{
-				$errormsg = "Clothing was not successfully added. Please try again later.";
+				$errormsg = "Outfit was not successfully added. Please try again later";
 			}
+
 		}
-		else if(!$clothingselected){
-			$itemerror = "No clothing items selected";
+		else if($numparts < 2){
+			$itemerror = "Please select a minimum of 2 items";
 		}
 	}else{
 		if(!isset($_GET['outfitid']))
 			header("Location: viewcloset.php");
-
-		$query = "SELECT * FROM outfits WHERE id = " . $_GET['outfitid'] . " AND userid = " . $_SESSION['userid'];
-
-		$result = mysqli_query($con, $query);
-		if(!$result){
-			$errormsg = 'The outfit you are trying to edit is unavailable. Please try again later';
-		}
-
-		$row = mysqli_fetch_array($result);
-		$numparts = $row['numparts'];
-		$parts = explode(" ", $row['parts']);
 	}
+
+	if(isset($_POST['id']))
+		$id = $_POST['id'];
+	if(isset($_GET['outfitid']))
+		$id = $_GET['outfitid'];
+
+	$query = "SELECT * FROM outfits WHERE id = " . $id . " AND userid = " . $_SESSION['userid'];
+
+	$result = mysqli_query($con, $query);
+	if(!$result){
+		$errormsg = 'The outfit you are trying to edit is unavailable. Please try again later';
+	}
+
+	$row = mysqli_fetch_array($result);
+	$numparts = $row['numparts'];
+	$parts = explode(" ", $row['parts']);
+
 ?>
 
 <!DOCTYPE html>
@@ -150,13 +159,16 @@
 		<div class = "container">
 			<div class ="row">
 				<div class ="col-md-6 col-md-offset-3 well">
-					<form role = "form" action = "<?php echo $_SERVER['PHP_SELF']; ?>" method ="post" name = "addoutfitform">
+					<form role = "form" action = "<?php echo $_SERVER['PHP_SELF']; ?>" method ="post" name = "editoutfitform">
 						<fieldset>
 							<legend>
 								<span class ="glyphicon glyphicon-plus">
 								</span>
 								Edit Outfit
 							</legend>
+                            <div class = "form-group">
+                            	<input type = "hidden" name = "id" value = "<?php echo $row['id']; ?>"/>
+                            </div>
 							<div class ="form-group">
 								<label for = "name">Name of outfit </label>
 								<input type ="text" name = "name" placeholder = "Blue plaid" required value = "<?php if(isset($row['name'])) echo $row['name']; ?>" class = "form-control"?>
@@ -225,11 +237,11 @@
 								<span class = "text-danger text-center pull-right"  id = "max-error"><?php if(isset($itemerror)) echo $itemerror; ?></span>
 							</div>
 							<div class = "form-group">
-								<button type = "submit" class ="btn btn-default" name = "addoutfit">
-									Submit outfit
+								<button type = "submit" class ="btn btn-default" name = "editoutfit">
+									Submit changes
 								</button>
-								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
-									Discard outfit
+								<a type = "button" href = "viewcloset.php" class ="btn btn-default pull-right">
+									Discard changes
 								</a>
 							</div>
 						</fieldset>
@@ -246,8 +258,15 @@
 		<script src = "js/main.js"></script>
 		<script>
 			var maxitems = <?php echo json_encode($max_items); ?>;
-			for(var i  = 0; i < <?php echo $numparts; ?>; ++i) {
+			var minitems = 2;
+			var numitems = <?php echo $numparts; ?>;
+			var parts = <?php echo json_encode($parts); ?>;
+			for(var i  = 0; i < numitems; ++i) {
 				$('[name = "item-group' + i + '"]').removeClass("item-hide");
+				$('[name = "item' + i + '"]').val(parts[i]);
+			}
+			if(numitems <= minitems){
+				$('#delete-button').prop('disabled', true);
 			}
 		</script>
 	</body>

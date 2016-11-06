@@ -186,8 +186,11 @@
                             </div>
                             <div class = "form-group">
                             	<button type = "submit" name = "editclothing" class = "btn btn-primary">
-                            		Save Changes
+                            		Save changes
                             	</button>
+                                <a type = "button" href = "viewcloset.php" class ="btn btn-default pull-right">
+                                    Discard changes
+                                </a>
                             </div>
                         </fieldset>
                     </form> 

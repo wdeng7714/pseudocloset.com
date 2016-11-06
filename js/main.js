@@ -43,7 +43,7 @@ $( document ).ready(function() {;
     var type;
     var id;
 
-    $('#viewstage .thumbnail').click(function(){
+    $('.thumbnail').click(function(){
     	// $('.modal-body').empty();
     	name = $(this).attr('name');
     	url = $(this).attr('url');
@@ -72,15 +72,11 @@ $( document ).ready(function() {;
 
 
     // addoutfit.php 
-    $('.outfit-item').addClass('item-hide');
+
     var minitems = 2;
-    var numitems = minitems;
-    for(var i  = 0; i < numitems; ++i) {
+    for(var i  = 0; i < minitems; ++i) {
         $('[name = "item-group' + i + '"]').removeClass("item-hide");
     }
-
-
-    $('#delete-button').prop('disabled', true);
 
     $('#add-button').click(function(e){
         e.preventDefault();
@@ -99,6 +95,7 @@ $( document ).ready(function() {;
         $('#add-button').prop('disabled',false);
         $("#max-error").text("");
         $('[name = "item-group' + (numitems - 1) + '"]').addClass("item-hide");
+        $('[name = "item' + (numitems - 1) + '"]').val("");
         numitems--;
 
         if(numitems <= minitems){
