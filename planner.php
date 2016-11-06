@@ -199,7 +199,7 @@
 						</div>		
 						<div class = "panel-footer clearfix"> 
 						<span class = "text-danger" id="outfit-selection-error"></span>
-						<a type = "submit" id = "today-button" class = "btn btn-primary pull-right" >Submit</a>
+						<a type = "submit" id = "today-button" class = "btn btn-primary pull-right" >Submit plan</a>
 						
 						</div>
 					</div>
@@ -212,7 +212,7 @@
 					while ($plans_row = mysqli_fetch_array($plansresult)){
 					?>
 						<div class = "col-md-8 col-md-offset-2">
-							<div class = "panel panel-default">
+							<div class = "panel panel-info">
 								<div class ="panel-heading clearfix">
 									<h5 class = "pull-left">Your outfit for <?php echo $plans_row['date'] . " is ". $plans_row['name']; ?> </h5>
 									<div class = "pull-right">
@@ -329,6 +329,5 @@
 			    }
 			})
 		</script>
-
 	</body>
 </html>
