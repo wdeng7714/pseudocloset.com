@@ -144,9 +144,13 @@
                                 <select name = "type" class = "form-control">
                                     <option>sweater</option>
                                     <option>shirt</option>
+                                    <option>dress</option>
+                                    <option>jacket</option>
                                     <option>pants</option>
                                     <option>socks</option>
-                                    <option>jacket</option>
+                                    <option>shoes</option>
+                                    <option>acccessories</option>
+                                   
                                 </select>   
                             </div>
                             <div class = "form-group">
