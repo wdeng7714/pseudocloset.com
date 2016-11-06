@@ -96,16 +96,30 @@
 								<a href = "planner.php">Planner</a>
 							</li>
 							<li>
-								<a href = "addclothing.php">
-									Add clothing
-								</a>
-							</li>
-							<li>
 								<a href = "laundrybasket.php">Laundry basket</a>
+							</li>
+							<li class = "active">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                             		 <i class = "icon-plus"></i> Add
+                             		<span class="caret"></span>
+                             	</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="addclothing.php">
+											 Add clothing
+										</a>
+										<a href="addoutfit.php">
+											 Add outfit
+										</a>
+										<a href="addplan.php">
+											 Add plan
+										</a>
+									</li>
+								</ul>
 							</li>
                             <li>
                             	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            		<i class="fa fa-user" aria-hidden="true"></i>
+                            		<i class="icon-user" aria-hidden="true"></i>
                              		 <?php echo $_SESSION['username'];?>
                              		<span class="caret"></span>
                              	</a>
