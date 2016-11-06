@@ -114,5 +114,15 @@ $( document ).ready(function() {;
         $('#checkbox' + $(this).attr("id")).toggleClass("icon-check");
     })
 
-
+     $('[name = "radio-outfit"]').on('change', function(){
+       
+       if($(this).val() === "yes"){
+            $('.collapsible').collapse('hide');
+            $('#outfit-selection').prop('disabled', false);
+        }else{
+            
+            $('.collapsible').collapse('show');
+            $('#outfit-selection').prop('disabled', true);
+        }
+     })
 });

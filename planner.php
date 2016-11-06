@@ -5,6 +5,37 @@
 		header("Location: index.php");
 	}
 
+	if( isset($_GET['outfitselectionid'])){
+		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
+		$result = mysqli_query($con, $query);
+		if($result){
+			$row = mysqli_fetch_array($result);
+
+			$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "' . $row['name'].'", "' . $row['id'] . '","' . $row['parts'] . '","' . $row['numparts'] . '",CURDATE())' ;
+			if(mysqli_query($con, $query)){
+				header("Location: planner.php");
+				$successmsg = "Your outfit was successfully updated";
+			}
+			else{
+				$errormsg = "Error Please try again later";
+			}
+
+		}else{
+			$errormsg = "Error. Please try again later.";
+		}
+	}
+	if( isset($_GET['outfitparts'])){
+		$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'", CURDATE())';
+
+		if(mysqli_query($con, $query)){
+			header("Location: planner.php");
+			$successmsg = "Your outfit was successfully updated";
+		}
+		else{
+			$errormsg = "Error Please try again later";
+		}
+	}
+
 
 	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'];
 	$outfitresult = mysqli_query($con, $outfitquery);
@@ -12,6 +43,12 @@
     $clothingresult =mysqli_query($con, $clothingquery);
     $display=0;
     $max_per_page=20;
+
+    $plansquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'];
+    $plansresult = mysqli_query($con, $plansquery);
+
+    $todayquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'] . " AND date = CURDATE()";
+    $todayresult = mysqli_query($con, $todayquery);
 
 ?>
 <!DOCTYPE html>
@@ -92,13 +129,14 @@
 			</div>
 		</nav>
 
-		<div class = "container">
+
+		<div class = "container <?php if(mysqli_num_rows($todayresult) > 0) echo "item-hide";?>" >
 			<div class = "row">
 				<div class = "col-md-12">
 					<h2 class = "page-header text-center"> Outfit planner </h2>
 				</div>
 				<div class = "col-md-8 col-md-offset-2 ">
-					<div class = "panel panel-info">
+					<div class = "panel panel-info" role = "form"  name = "outfittodayform">
 						<div class ="panel-heading">
 							Today's Outfit
 						</div>
@@ -108,36 +146,37 @@
 								<div class = "row">
 									<div class = "col-sm-6">
 										<div class = "input-group" name = "inputchoice">
-											<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" value = "no" aria-label ="radiobutton for outfit" checked>
+											<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" value = "yes" aria-label ="radiobutton for outfit" checked>
 											</span> 
-											<select class = "form-control"> 
+											<select id = "outfit-selection" class = "form-control" > 
 
-												<option disabled selected hidden>Choose an outfit</option>
+												<option value = "" disabled selected hidden>Choose an outfit</option>
 
 												<?php 
 												while($row = mysqli_fetch_array($outfitresult)){
 												echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
 												}
 												?>
-											</select>
+											</select>											
 										</div>
 									</div>
 									<div class = "col-sm-6">
 										<div class = "input-group" name = "inputchoice">
-											<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" value = "yes" aria-label ="radiobutton for outfit">
+											<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" value = "no" aria-label ="radiobutton for outfit">
 											</span> 
 											<div class ="form-control">No Outfit</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg; ?> </span>
 							<div class="collapse collapsible">
 							<div class ="owl-carousel col-md-12 ">		
 								<?php
 									while($row = mysqli_fetch_array($clothingresult)){
 										$display++;
 
-										echo '<div class = "item planner-item"><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a><div class = "overlay" id = overlay"' . $row['id'] .'"></div></div>';
+										echo '<div class = "item planner-item"><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a></div>';
 									}
 								?>
 								
@@ -145,7 +184,38 @@
 							</div>
 						</div>		
 						<div class = "panel-footer clearfix"> 
-						<button class = "btn btn-primary pull-right" >Submit</button>
+						<span class = "text-danger" id="outfit-selection-error"></span>
+						<a type = "submit" id = "today-button" class = "btn btn-primary pull-right" >Submit</a>
+						<script>
+							$('#today-button').click(function(){
+								if($('[name = "radio-outfit"]:checked').val() === "yes"){
+									if($('#outfit-selection').val() === null){
+										$('#outfit-selection-error').text("Please select an outfit");
+									}
+									else{
+										var outfitid = $('#outfit-selection').val();
+										window.location.href = "planner.php?outfitselectionid=" + outfitid;
+									}
+								}else{
+									var parts = "";
+									var counter = 0;
+
+									$('.icon-check').each(function(){
+										counter++;
+										parts += ($(this).attr("id")).substring(8) + " "; 
+									})
+									if(counter===0){
+										$('#outfit-selection-error').text("Please select at least 1 article of clothing");
+									}
+									else if(counter > 10){
+										$('#outfit-selection-error').text("Please only select up to 10 items at once");
+									}
+									else{
+										window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
+									}
+								}
+							})
+						</script>
 						</div>
 					</div>
 				</div>
