@@ -139,7 +139,7 @@
 				<div class ="col-md-8 col-md-offset-2 well">
 					<legend>
 						 <span class="glyphicon glyphicon-plus"></span>
-                        Add clothing
+                        Add plan
 					</legend>
 					<div class = "form-group">
 						<label for = "datechoice">Choose a date</label>
@@ -152,7 +152,7 @@
                         </div>
 					</div>
 					<div class = "form-group">
-						<label for = "inputchoice">From outfit or from scratch?</label>
+						<label for = "inputchoice">From outfits or from scratch?</label>
 						<div class = "row">
 							<div class = "col-sm-6">
 								<div class = "input-group" name = "inputchoice">
@@ -191,8 +191,12 @@
 						</div>
 					</div>
 					<div class = "form-group">
-						<button type = "submit" id = "addplan" class = "btn btn-primary"> Submit
+						<button type = "submit" id = "addplan" class = "btn btn-primary">
+							Submit plan
 						</button>
+                        <a type = "button" href = "planner.php" class ="btn btn-default pull-right">
+                            Discard plan
+                        </a>
 					</div>
 					<span id = "outfit-selection-error" class = "text-danger"></span>
 					<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?> </span>
