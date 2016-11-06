@@ -161,8 +161,11 @@
                             </div>
                             <div class = "form-group">
                             	<button type = "submit" name = "addclothing" class = "btn btn-primary">
-                            		Submit
+                            		Submit clothing
                             	</button>
+                                <a type = "button" href = "viewcloset.php" class ="btn btn-default pull-right">
+                                    Discard clothing
+                                </a>
                             </div>
                         </fieldset>
                     </form> 
