@@ -44,7 +44,7 @@
     $display=0;
     $max_per_page=20;
 
-    $plansquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'];
+    $plansquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'] . " ORDER BY date" ;
     $plansresult = mysqli_query($con, $plansquery);
 
     $todayquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'] . " AND date = CURDATE()";
@@ -214,7 +214,7 @@
 						<div class = "col-md-8 col-md-offset-2">
 							<div class = "panel panel-default">
 								<div class ="panel-heading clearfix">
-									<h5 class = "pull-left">Your outfit for <?php echo $plans_row['date']; ?></h5>
+									<h5 class = "pull-left">Your outfit for <?php echo $plans_row['date'] . " is ". $plans_row['name']; ?> </h5>
 									<div class = "pull-right">
 										<a href = "editplan.php?id="<?php echo $outfit_row['id'] ?>  type = "button" class = "btn btn-default" id = "edit-outfit-button">
 											<span class="glyphicon glyphicon-pencil"></span>
