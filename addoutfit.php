@@ -215,16 +215,16 @@
 								<button type = "submit" class ="btn btn-default" name = "addoutfit">
 									Submit outfit
 								</button>
-								<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
-								</span>
-								<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
-								</span>
 								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
 									Discard outfit
 								</a>
 							</div>
 						</fieldset>
 					</form>
+					<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
+					</span>
+					<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
+					</span>
 				</div>
 			</div>
 		</div>
