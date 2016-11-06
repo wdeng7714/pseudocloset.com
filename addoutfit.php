@@ -148,13 +148,13 @@
 								</span>
 							</div>
 							<?php for ($i = 0; $i < $max_items; $i++){ ?>
-							<div class = "form-group outfit-item" name = <?php echo '"item-group'. $i . '"'; ?> >
+							<div class = "form-group outfit-item item-hide" name = <?php echo '"item-group'. $i . '"'; ?> >
 								<label for ="<?php echo 'item' . $i; ?>" >
 									<?php echo 'Item ' . ($i + 1); ?> 
 								 </label>
 
 								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control clothing-item-select">			
-									<option value "" disabled selected hidden> Choose a piece of clothing </option>
+									<option value = "" disabled selected hidden> Choose a piece of clothing </option>
 									<optgroup label = "Tops">
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket')";
@@ -201,16 +201,16 @@
 								<button type = "submit" class ="btn btn-default" name = "addoutfit">
 									Submit outfit
 								</button>
-								<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
-								</span>
-								<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
-								</span>
 								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
 									Discard outfit
 								</a>
 							</div>
 						</fieldset>
 					</form>
+					<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
+					</span>
+					<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
+					</span>
 				</div>
 			</div>
 		</div>

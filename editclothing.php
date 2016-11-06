@@ -35,9 +35,9 @@
 
 	}else{
 		if(!isset($_GET['clothingid']))
-			header("Location: addclothing.php");
+			header("Location: viewcloset.php");
 
-		$query = "SELECT * FROM clothing WHERE id = " . $_GET['clothingid'];
+		$query = "SELECT * FROM clothing WHERE id = " . $_GET['clothingid'] . " AND userid = " . $_SESSION['userid'];
 
 		$result = mysqli_query($con, $query);
 		

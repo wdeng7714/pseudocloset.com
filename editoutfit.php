@@ -8,7 +8,7 @@
 	$error = false;
 	$max_items = 10;
 
-	if(isset($_POST['addoutfit'])){
+	if(isset($_POST['editoutfit'])){
 		$clothingselected = false;
 
 		$duplicate = -1;
@@ -59,12 +59,27 @@
 		else if(!$clothingselected){
 			$itemerror = "No clothing items selected";
 		}
+	}else{
+		if(!isset($_GET['outfitid']))
+			header("Location: viewcloset.php");
+
+		$query = "SELECT * FROM outfits WHERE id = " . $_GET['outfitid'] . " AND userid = " . $_SESSION['userid'];
+
+		$result = mysqli_query($con, $query);
+		if(!$result){
+			$errormsg = 'The outfit you are trying to edit is unavailable. Please try again later';
+		}
+
+		$row = mysqli_fetch_array($result);
+		$numparts = $row['numparts'];
+		$parts = explode(" ", $row['parts']);
 	}
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Add outfit | PseudoCloset</title>
+		<title>Edit outfit | PseudoCloset</title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
@@ -131,6 +146,7 @@
 			</div>
 		</nav>
 <!--- add outfit form -->
+
 		<div class = "container">
 			<div class ="row">
 				<div class ="col-md-6 col-md-offset-3 well">
@@ -139,23 +155,28 @@
 							<legend>
 								<span class ="glyphicon glyphicon-plus">
 								</span>
-								Add Outfit
+								Edit Outfit
 							</legend>
 							<div class ="form-group">
 								<label for = "name">Name of outfit </label>
-								<input type ="text" name = "name" placeholder = "Blue plaid" required value = "<?php if($error) echo $name; ?>" class = "form-control"?>
+								<input type ="text" name = "name" placeholder = "Blue plaid" required value = "<?php if(isset($row['name'])) echo $row['name']; ?>" class = "form-control"?>
 								<span class = "text-danger"> <?php if(isset($name_error)) echo $name_error; ?>
 								</span>
 							</div>
+
 							<?php for ($i = 0; $i < $max_items; $i++){ ?>
-							<div class = "form-group outfit-item" name = <?php echo '"item-group'. $i . '"'; ?> >
+							<div class = "form-group outfit-item item-hide" name = <?php echo '"item-group'. $i . '"'; ?> >
 								<label for ="<?php echo 'item' . $i; ?>" >
 									<?php echo 'Item ' . ($i + 1); ?> 
 								 </label>
 
+
 								<select name = <?php echo '"item'. $i . '"'; ?> class = "form-control clothing-item-select">			
+									
 									<option value "" disabled selected hidden> Choose a piece of clothing </option>
+									
 									<optgroup label = "Tops">
+
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket')";
 											echo $query;
@@ -165,6 +186,7 @@
 											}
 										?>
 									</optgroup>
+
 									<optgroup label = "Bottoms">
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND type = 'pants'";
@@ -175,6 +197,7 @@
 											}
 										?>
 									</optgroup>
+
 									<optgroup label = "Misc">
 										<?php
 											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'socks' OR type ='underwear' OR type ='accessory')";
@@ -187,6 +210,10 @@
 									</optgroup>					
 								</select>
 							</div>
+
+							<script>
+								// $('[name = "item<?php echo $i; ?>"]').attr('value', "<?php if(isset($parts[$i])) echo $parts[$i]; ?>" );
+							</script>
 							<?php }?>
 							<div class = "form-group">
 								<button type="button" class ="btn btn-success" id = "add-button">
@@ -201,25 +228,27 @@
 								<button type = "submit" class ="btn btn-default" name = "addoutfit">
 									Submit outfit
 								</button>
-								<span class = "text-success"> <?php if (isset($successmsg)) echo $successmsg; ?>
-								</span>
-								<span class = "text-danger"> <?php if (isset($errormsg)) echo $errormsg;?>
-								</span>
 								<a type = "button" href = "planner.php" class ="btn btn-default pull-right">
 									Discard outfit
 								</a>
 							</div>
 						</fieldset>
 					</form>
+                    <span class = "text-success"><?php if (isset($successmsg)) echo $successmsg; ?>
+                    </span>
+                    <span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?>
+                    </span> 
 				</div>
 			</div>
 		</div>
-		<script type = "text/javascript">
-			var maxitems= <?php echo json_encode($max_items); ?>;
-		</script>
 		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
 		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src = "js/main.js"></script>
-
+		<script>
+			var maxitems = <?php echo json_encode($max_items); ?>;
+			for(var i  = 0; i < <?php echo $numparts; ?>; ++i) {
+				$('[name = "item-group' + i + '"]').removeClass("item-hide");
+			}
+		</script>
 	</body>
 </html>
