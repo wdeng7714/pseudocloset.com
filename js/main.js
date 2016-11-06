@@ -130,13 +130,20 @@ $( document ).ready(function() {;
 
     // planner
  
-     $('.planner-item .thumbnail').click(function(){
+    $('.delete-plan-button').click(function(e){
+        var result = confirm("Are you sure you wish to delete this plan?");
+        if(result){
+            window.location  = "deleteplan.php?id=" + $(this).attr("planid");
+        }
+    });
+
+    $('.planner-item .thumbnail').click(function(){
         // $(this).toggleClass("active");
         $('#checkbox' + $(this).attr("id")).toggleClass("icon-check-empty");
         $('#checkbox' + $(this).attr("id")).toggleClass("icon-check");
     })
 
-     $('[name = "radio-outfit"]').on('change', function(){
+    $('[name = "radio-outfit"]').on('change', function(){
        
        if($(this).val() === "yes"){
             $('.collapsible').collapse('hide');
