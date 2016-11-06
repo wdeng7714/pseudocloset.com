@@ -97,7 +97,7 @@
 				<div class = "col-md-12">
 					<h2 class = "page-header text-center"> Outfit planner </h2>
 				</div>
-				<div class = "col-md-8 col-md-offset-2">
+				<div class = "col-md-8 col-md-offset-2 ">
 					<div class = "panel panel-info">
 						<div class ="panel-heading">
 							Today's Outfit
@@ -108,7 +108,7 @@
 								<div class = "row">
 									<div class = "col-sm-6">
 										<div class = "input-group" name = "inputchoice">
-											<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" aria-label ="radiobutton for outfit" >
+											<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" value = "no" aria-label ="radiobutton for outfit" checked>
 											</span> 
 											<select class = "form-control"> 
 
@@ -124,15 +124,15 @@
 									</div>
 									<div class = "col-sm-6">
 										<div class = "input-group" name = "inputchoice">
-											<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" aria-label ="radiobutton for outfit">
+											<span class = "input-group-addon"><input type = "radio" name = "radio-outfit" value = "yes" aria-label ="radiobutton for outfit">
 											</span> 
 											<div class ="form-control">No Outfit</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							
-							<div class ="owl-carousel col-md-12">
+							<div class="collapse collapsible">
+							<div class ="owl-carousel col-md-12 ">		
 								<?php
 									while($row = mysqli_fetch_array($clothingresult)){
 										$display++;
@@ -140,11 +140,12 @@
 										echo '<div class = "item planner-item"><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a><div class = "overlay" id = overlay"' . $row['id'] .'"></div></div>';
 									}
 								?>
-									
+								
+							</div>
 							</div>
 						</div>		
-						<div class = "panel-footer"> 
-						<button class = "btn btn-default" >Ok</button>
+						<div class = "panel-footer clearfix"> 
+						<button class = "btn btn-primary pull-right" >Submit</button>
 						</div>
 					</div>
 				</div>
