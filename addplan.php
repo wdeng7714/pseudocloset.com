@@ -6,7 +6,28 @@
 	}
 	$clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'];
 	$clothingresult =mysqli_query($con, $clothingquery);
+	$outfitquery = "SELECT * FROM outfits WHERE userid = ". $_SESSION['userid'];
+	$outfitresult = mysqli_query($con, $outfitquery);
 
+	if( isset($_GET['outfitselectionid'])){
+		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
+		$result = mysqli_query($con, $query);
+
+		if($result){
+			$row = mysqli_fetch_array($result);
+
+			$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "' . $row['name'].'", "' . $row['id'] . '","' . $row['parts'] . '","' . $row['numparts'] . '","'. $_GET['date'].'")' ;
+			if(mysqli_query($con, $query)){
+
+				$successmsg = "Your plan was successfully added";
+				header("Location: addplan.php");
+			}else{
+				$errormsg = "Error 1 Please try again later";
+			}
+		}else{
+			$errormsg = "Error 2 Please try again later";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,11 +49,7 @@
         <script src = "vendor/datepicker/locales.js"></script>
         <script src = "vendor/datepicker/datepicker.js"></script>
         <script src = "vendor/jscolor/jscolor.js"></script>
-        <script type = "text/javascript">
-        	$('#datepicker').datetimepicker({
-				format: 'YYYY-MM-DD'
-    		});
-    	</script>
+        
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
@@ -98,7 +115,7 @@
 				<div class = "col-md-12">
 					<h2 class = "page-header text-center">New Plan</h2>
 				</div>
-				<div class ="col-md-8 col-md-offset-2">
+				<div class ="col-md-8 col-md-offset-2 well">
 					<div class = "form-group">
 						<label for = "datechoice">Choose a date</label>
 						<div class = "input-group date" id = 'datepicker'>
@@ -137,7 +154,7 @@
 							</div>
 						</div>
 					</div>
-					<div class = "collapse collapsible">
+					<div class = "collapse collapsible form-group">
 						<div class ="owl-carousel col-md-12 ">
 							<?php
 								while($row = mysqli_fetch_array($clothingresult)){
@@ -148,6 +165,13 @@
 							?>
 						</div>
 					</div>
+					<div class = "form-group">
+						<button type = "submit" id = "addplan" class = "btn btn-primary"> Submit
+						</button>
+						<span id = "outfit-selection-error" class = "text-danger"></span>
+						<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?> </span>
+						<span class = "text-success" id = "successful"><?php if(isset($successmsg)) echo $successmsg;?> </span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -157,5 +181,46 @@
 				items: 3
 			});
 		</script>
+		<script type = "text/javascript">
+        	$('#datepicker').datetimepicker({
+				format: 'YYYY-MM-DD'
+    		});
+    	</script>
+    	<script>
+    	    $('#addplan').click(function(){
+
+        		if($('[name = "radio-outfit"]:checked').val() === "yes"){
+
+           			if($('#outfit-selection').val() === null){
+           				alert("no");
+               			 $('#outfit-selection-error').text("Please select an outfit");
+           		 	}
+           		 	else{
+           		   		var outfitid = $('#outfit-selection').val();
+                		var date = $('[name = datechoice]').val();
+                		alert("yes");
+                		alert(outfitid);
+                		window.location.href = "addplan.php?outfitselectionid=" + outfitid +"&date=" + date;
+            	 	}
+       			 }else{
+            		var parts = "";
+            		var counter = 0;
+
+           			$('.icon-check').each(function(){
+                		counter++;
+                		parts += ($(this).attr("id")).substring(8) + " "; 
+            		})
+            		if(counter===0){
+                		$('#outfit-selection-error').text("Please select at least 1 article of clothing");
+            		}
+            		else if(counter > 10){
+                		$('#outfit-selection-error').text("Please only select up to 10 items at once");
+            		}
+            		else{
+                		window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
+            		}
+        		}
+    		})
+    	</script>
 	</body>
 </html>
