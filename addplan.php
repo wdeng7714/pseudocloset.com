@@ -28,7 +28,7 @@
 		}
 	}
 	if( isset($_GET['outfitparts'])){
-		$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'", CURDATE())';
+		$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'","' . $_GET['date'] .'")';
 
 		if(mysqli_query($con, $query)){
 			$successmsg = "Plan successfully added. <a href = 'planner.php'>Click here to view planner</a>";
@@ -214,6 +214,42 @@
         	$('#datepicker').datetimepicker({
 				format: 'YYYY-MM-DD'
     		});
+    	</script>
+    	<script>
+    		$('#addplan').click(function(){
+		        var date = $('[name = datechoice]').val();
+		        if(date === ""){
+		            $('#outfit-selection-error').text("Please select a date for the plan");
+		        }else{
+		            if($('[name = "radio-outfit"]:checked').val() === "yes"){
+		                if($('#outfit-selection').val() === null){
+		                    $('#outfit-selection-error').text("Please select an outfit");
+		                }
+		                else{
+		                    var outfitid = $('#outfit-selection').val();           
+		                    window.location.href = "addplan.php?outfitselectionid=" + outfitid +"&date=" + date;
+		                }
+		             }else{
+		                
+		                var parts = "";
+		                var counter = 0;
+
+		                $('.icon-check').each(function(){
+		                    counter++;
+		                    parts += ($(this).attr("id")).substring(8) + " "; 
+		                })
+		                if(counter < 2){
+		                    $('#outfit-selection-error').text("Please select at least 2 article of clothing");
+		                }
+		                else if(counter > 10){
+		                    $('#outfit-selection-error').text("Please only select up to 10 items at once");
+		                }
+		                else{
+		                    window.location.href = "addplan.php?outfitparts=" + parts + "&outfitnumparts=" + counter + "&date=" + date;
+		                }
+		            }
+		        }
+		    })
     	</script>
 	</body>
 </html>

@@ -4,37 +4,54 @@
 	if (!isset($_SESSION['userid'])){
 		header("Location: index.php");
 	}
+
 	$clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'];
 	$clothingresult =mysqli_query($con, $clothingquery);
 	$outfitquery = "SELECT * FROM outfits WHERE userid = ". $_SESSION['userid'];
 	$outfitresult = mysqli_query($con, $outfitquery);
 
-	if( isset($_GET['outfitselectionid'])){
-		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
-		$result = mysqli_query($con, $query);
+	if(isset($_GET['planid'])){
+		$planquery = "SELECT * FROM plans WHERE userid =" . $_SESSION['userid'] . ' AND id = ' . $_GET['planid'];
+		$planresult = mysqli_query($con, $planquery);
+		$planrow = mysqli_fetch_array($planresult);
+		if(!$planrow){
+			header("Location: planner.php");
+		}
 
-		if($result){
-			$row = mysqli_fetch_array($result);
+		$parts = explode(" ",$planrow['parts']);
 
-			$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "' . $row['name'].'", "' . $row['id'] . '","' . $row['parts'] . '","' . $row['numparts'] . '","'. $_GET['date'].'")' ;
-			if(mysqli_query($con, $query)){
+		$hasoutfit = true;
+		if($planrow['outfitid'] == -1){
+			$hasoutfit = false;
+		}
+	}else{
+		if( isset($_GET['outfitselectionid'])){
+			$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
+			$result = mysqli_query($con, $query);
 
-				$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
+			if($result){
+				$row = mysqli_fetch_array($result);
+
+				$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "' . $row['name'].'", "' . $row['id'] . '","' . $row['parts'] . '","' . $row['numparts'] . '","'. $_GET['date'].'")' ;
+				if(mysqli_query($con, $query)){
+
+					$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
+				}else{
+					$errormsg = "Plan was not successfully updated. Please try again later";
+				}
 			}else{
 				$errormsg = "Plan was not successfully updated. Please try again later";
 			}
-		}else{
-			$errormsg = "Plan was not successfully updated. Please try again later";
 		}
-	}
-	if( isset($_GET['outfitparts'])){
-		$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'", CURDATE())';
+		else if( isset($_GET['outfitparts'])){
+			$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'","' . $_GET['date'] .'")';
 
-		if(mysqli_query($con, $query)){
-			$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
-		}
-		else{
-			$errormsg = "Plan was not successfully updated. Please try again later";
+			if(mysqli_query($con, $query)){
+				$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
+			}
+			else{
+				$errormsg = "Plan was not successfully updated. Please try again later";
+			}
 		}
 	}
 ?>
@@ -144,7 +161,7 @@
 					<div class = "form-group">
 						<label for = "datechoice">Choose a date</label>
 						<div class = "input-group date" id = 'datepicker'>
-							<input type = "text" class = "form-control" requrired placeholder = "YYYY-MM-DD" name = "datechoice"/>
+							<input type = "text" class = "form-control" requrired placeholder = "YYYY-MM-DD" name = "datechoice" value = "<?php if(isset($planrow['date'])) echo $planrow['date']; ?>" />
 							<span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -158,13 +175,19 @@
 								<div class = "input-group" name = "inputchoice">
 									<span class = "input-group-addon" ><input type = "radio" name = "radio-outfit" value = "yes" aria-label ="radiobutton for outfit" checked>
 									</span> 
-									<select id = "outfit-selection" class = "form-control" > 
 
-										<option value = "" disabled selected hidden>Choose an outfit</option>
+									<select id = "outfit-selection" class = "form-control"> 
+
+										<option value = "" disabled <?php if(!$hasoutfit) echo "selected"; ?> hidden>Choose an outfit</option>
 
 										<?php 
 										while($row = mysqli_fetch_array($outfitresult)){
-											echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+											if($row['id'] == $planrow['outfitid']){
+												echo "<option selected value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+											}
+											else{
+												echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
+											}
 										}
 										?>
 									</select>
@@ -215,5 +238,24 @@
 				format: 'YYYY-MM-DD'
     		});
     	</script>
+    	<?php
+    		if(isset($planrow['numparts'])){
+				if(!$hasoutfit){
+					for($i = 0; $i < $planrow['numparts']; ++$i){
+						echo "<script>
+								$('#checkbox" . $parts[$i] ."').toggleClass('icon-check-empty');
+								$('#checkbox" . $parts[$i] ."').toggleClass('icon-check');
+							</script>";
+					}
+		?>
+			<script>
+				$('[name = "radio-outfit"]').trigger('click');
+				$('.collapsible').collapse('show');
+            	$('#outfit-selection').prop('disabled', true);
+			</script>
+		<?php
+				}
+			}
+    	?>
 	</body>
 </html>
