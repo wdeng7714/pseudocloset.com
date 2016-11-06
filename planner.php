@@ -21,8 +21,16 @@
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
+		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.carousel.css" type="text/css"/>
+		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.theme.css" type="text/css"/>
+		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.transitions.css" type="text/css"/>
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/> 
 		<link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
+
+		<script src = "vendor/jquery/jquery-2.1.1.min.js"></script>
+		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
+       	<script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
+       	<script src = "js/main.js"></script>
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
@@ -84,9 +92,11 @@
 			</div>
 		</nav>
 
-		<h2 class = "page-header text-center"> Outfit planner </h2>
 		<div class = "container">
 			<div class = "row">
+				<div class = "col-md-12">
+					<h2 class = "page-header text-center"> Outfit planner </h2>
+				</div>
 				<div class = "col-md-8 col-md-offset-2">
 					<div class = "panel panel-info">
 						<div class ="panel-heading">
@@ -105,7 +115,6 @@
 												<option disabled selected hidden>Choose an outfit</option>
 
 												<?php 
-											
 												while($row = mysqli_fetch_array($outfitresult)){
 												echo "<option value = '". $row['id'] . "'>" . $row['name'] . "</option>";
 												}
@@ -123,31 +132,24 @@
 								</div>
 							</div>
 							
-								
-							<div class ="col-md-12" role = "form">
-							
-								<div class ="row">
+							<div class ="owl-carousel col-md-12">
+								<?php
+									while($row = mysqli_fetch_array($clothingresult)){
+										$display++;
 
-									<?php
-										while($row = mysqli_fetch_array($clothingresult) and $display < $max_per_page){
-											$display++;
-
-											echo '<a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a>';
-										}
-									?>
+										echo '<div class = "item planner-item"><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a><div class = "overlay" id = overlay"' . $row['id'] .'"></div></div>';
+									}
+								?>
 									
-								</div>
-							</div>		
-						</div>
+							</div>
+						</div>		
 						<div class = "panel-footer"> 
-
+						<button class = "btn btn-default" >Ok</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-		<script src = "vendor/jquery/jquery-3.1.0.min.js"></script>
-		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

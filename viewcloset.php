@@ -106,7 +106,7 @@
 						<a href ="#" class= "btn btn-default" id = "tops"> Tops </a>
 						<a href ="#" class= "btn btn-default" id = "bottoms"> Bottoms </a>
 						<a href ="#" class= "btn btn-default" id = "misc"> Misc </a>
-						<a href ="addclothing.php" class= "btn btn-default" id = "new"> <i class = "fa fa-plus" aria-hidden="true"></i></a>
+						<a href ="addclothing.php" class= "btn btn-default" id = "new"> <i class="icon-plus"></i></a>
 					</div>
 				</div>
 
