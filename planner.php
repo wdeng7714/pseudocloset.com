@@ -54,7 +54,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Planner | PseudoCloset</title>
+		<title> View Closet | PseudoCloset </title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
 		<link rel = "stylesheet" href = "vendor/font-awesome/css/font-awesome.min.css"/>
 		<link rel = "stylesheet" href = "vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
@@ -65,9 +65,9 @@
 		<link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
 
 		<script src = "vendor/jquery/jquery-2.1.1.min.js"></script>
-		<script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
-       	<script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
-       	<script src = "js/main.js"></script>
+        <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
+        <script src = "js/main.js"></script>
 	</head>
 	<body>
 		<nav class = "navbar navbar-default" role = "navigation">
@@ -130,13 +130,13 @@
 		</nav>
 
 
-		<div class = "container <?php if(mysqli_num_rows($todayresult) > 0) echo "item-hide";?>" >
+		<div class = "container" >
 			<div class = "row">
 				<div class = "col-md-12">
 					<h2 class = "page-header text-center"> Outfit planner </h2>
 				</div>
-				<div class = "col-md-8 col-md-offset-2 ">
-					<div class = "panel panel-info" role = "form"  name = "outfittodayform">
+				<div class = "col-md-8 col-md-offset-2  <?php if(mysqli_num_rows($todayresult) > 0) echo "item-hide";?>">
+					<div class = "panel panel-iformnfo">
 						<div class ="panel-heading">
 							Today's Outfit
 						</div>
@@ -186,46 +186,105 @@
 						<div class = "panel-footer clearfix"> 
 						<span class = "text-danger" id="outfit-selection-error"></span>
 						<a type = "submit" id = "today-button" class = "btn btn-primary pull-right" >Submit</a>
-						<script>
-							$('#today-button').click(function(){
-								if($('[name = "radio-outfit"]:checked').val() === "yes"){
-									if($('#outfit-selection').val() === null){
-										$('#outfit-selection-error').text("Please select an outfit");
-									}
-									else{
-										var outfitid = $('#outfit-selection').val();
-										window.location.href = "planner.php?outfitselectionid=" + outfitid;
-									}
-								}else{
-									var parts = "";
-									var counter = 0;
-
-									$('.icon-check').each(function(){
-										counter++;
-										parts += ($(this).attr("id")).substring(8) + " "; 
-									})
-									if(counter===0){
-										$('#outfit-selection-error').text("Please select at least 1 article of clothing");
-									}
-									else if(counter > 10){
-										$('#outfit-selection-error').text("Please only select up to 10 items at once");
-									}
-									else{
-										window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
-									}
-								}
-							})
-						</script>
+						
 						</div>
+					</div>
+				</div>
+
+				
+				
+				<?php //START HERE
+
+					while ($plans_row = mysqli_fetch_array($plansresult)){
+					?>
+						<div class = "col-md-8 col-md-offset-2">
+							<div class = "panel panel-default">
+								<div class ="panel-heading clearfix">
+									<h5 class = "pull-left">Your outfit for <?php echo $plans_row['date']; ?></h5>
+									<div class = "pull-right">
+										<a href = "editplan.php?id="<?php echo $outfit_row['id'] ?>  type = "button" class = "btn btn-default" id = "edit-outfit-button">
+											<span class="glyphicon glyphicon-pencil"></span>
+										</a>
+										<button type = "button" class = "btn btn-default" id = "delete-outfit-button">
+											<span class="glyphicon glyphicon-trash"></span>
+										</button>
+									</div>
+								</div>
+								<div class ="panel-body">
+									<div class = "owl-carousel col-md-12">											
+										<?php
+											$parts = explode(" ", $plans_row['parts']);
+											for($i = 0; $i < $plans_row['numparts']; $i++){
+
+												$query = "SELECT * FROM clothing WHERE id=" . $parts[$i];
+												$result = mysqli_query($con, $query);
+												if($result){
+													$row = mysqli_fetch_array($result);
+													echo '<div class = "item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+												}
+											}
+										?>
+									</div>
+								</div>
+							</div>
+						</div>
+
+				<?php } ?>
+			</div>
+		</div>
+		<div class="modal fade" id="item-modal" role="dialog">
+			<div class = "modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body">
+						<div class = "container-fluid">	
+							<div class = "row center">
+								<div class = "col-md-6 col-xs-12">
+									<img src = "" class = "item-img center-block"/>
+								</div>
+								<div class = "col-md-6 col-xs-12 well">
+									<div class = "row">
+ 										<dl>
+  											<dt class = "col-xs-12">Color</dt>
+  											<dd class = "col-xs-12 item-color"><p> &nbsp; </p></dd>
+  											<dt class = "col-xs-12">Times worn</dt>
+  											<dd class = "item-timesworn col-xs-12"><p></p></dd>
+  											<dt class = "col-xs-12">Last worn</dt>
+  											<dd class = "col-xs-12 item-lastworn"><p></p></dd>
+										</dl>
+										<a type = "button" class = "btn btn-primary col-xs-offset-1" id = "edit-button">
+											<span class="glyphicon glyphicon-pencil"></span>
+											Edit
+										</a>
+										<button type = "button" class = "btn btn-danger" id = "delete-clothing-button">
+											<span class="glyphicon glyphicon-trash"></span>
+											Delete
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type = "button" class = "btn btn-success">
+							<i class="fa fa-plus" aria-hidden="true"></i> 
+							Laundry Basket
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<script>
 			$('.owl-carousel').owlCarousel({
 				loop: true,
 				items: 3
 			});
 		</script>
+
 	</body>
 </html>
