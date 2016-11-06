@@ -111,7 +111,7 @@
         </nav>
 
 
-        
+
 		<div class = "container"> 
 			<div class ="row" >
 				<div class = "col-lg-12">
@@ -133,7 +133,7 @@
 				<div class = "col-lg-12" id = "viewstage">
 					<h4>View: all</h4>
 					<?php
-						while ($row = mysqli_fetch_array($result_copy) and $item_display<$max_per_page){
+						while ($row = mysqli_fetch_array($result_copy)){
 							$item_display++;
 							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
 						}
