@@ -202,39 +202,38 @@
     	</script>
     	<script>
     	    $('#addplan').click(function(){
+    	    	var date = $('[name = datechoice]').val();
+    	    	if(date === ""){
+           		   	$('#outfit-selection-error').text("Date cannot be empty");
+           		}else{
+               		if($('[name = "radio-outfit"]:checked').val() === "yes"){
+	           			if($('#outfit-selection').val() === null){
+	  	         			$('#outfit-selection-error').text("Please select an outfit");
+	           		 	}
+	           		 	else{
+	           		   		var outfitid = $('#outfit-selection').val();           
+	                		window.location.href = "addplan.php?outfitselectionid=" + outfitid +"&date=" + date;
+	            	 	}
+	       			 }else{
+	            		var parts = "";
+	            		var counter = 0;
 
-        		if($('[name = "radio-outfit"]:checked').val() === "yes"){
-
-           			if($('#outfit-selection').val() === null){
-           				alert("no");
-               			 $('#outfit-selection-error').text("Please select an outfit");
-           		 	}
-           		 	else{
-           		   		var outfitid = $('#outfit-selection').val();
-                		var date = $('[name = datechoice]').val();
-                		alert("yes");
-                		alert(outfitid);
-                		window.location.href = "addplan.php?outfitselectionid=" + outfitid +"&date=" + date;
-            	 	}
-       			 }else{
-            		var parts = "";
-            		var counter = 0;
-
-           			$('.icon-check').each(function(){
-                		counter++;
-                		parts += ($(this).attr("id")).substring(8) + " "; 
-            		})
-            		if(counter===0){
-                		$('#outfit-selection-error').text("Please select at least 1 article of clothing");
-            		}
-            		else if(counter > 10){
-                		$('#outfit-selection-error').text("Please only select up to 10 items at once");
-            		}
-            		else{
-                		window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
-            		}
-        		}
-    		})
+	           			$('.icon-check').each(function(){
+	                		counter++;
+	                		parts += ($(this).attr("id")).substring(8) + " "; 
+	            		})
+	            		if(counter <2){
+	                		$('#outfit-selection-error').text("Please select at least 2 article of clothing");
+	            		}
+	            		else if(counter > 10){
+	                		$('#outfit-selection-error').text("Please only select up to 10 items at once");
+	            		}
+	            		else{
+	            			window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
+	            		}
+	        		}
+	    		}
+    	})
     	</script>
 	</body>
 </html>
