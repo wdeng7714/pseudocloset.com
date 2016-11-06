@@ -145,6 +145,7 @@
                                     <option>sweater</option>
                                     <option>shirt</option>
                                     <option>dress</option>
+                                    <option>skirt</option>
                                     <option>jacket</option>
                                     <option>pants</option>
                                     <option>socks</option>
