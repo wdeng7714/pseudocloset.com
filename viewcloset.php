@@ -131,7 +131,7 @@
 									<div class ="panel-heading clearfix">
 										<h5 class = "pull-left"><?php echo $outfit_row['name']; ?></h5>
 										<div class = "pull-right">
-											<a href = "editoutfit.php?id="<?php echo $outfit_row['id'] ?>  type = "button" class = "btn btn-default" id = "edit-outfit-button">
+											<a href = "editoutfit.php?outfitid=<?php echo $outfit_row['id']; ?>"  type = "button" class = "btn btn-default" id = "edit-outfit-button">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</a>
 											<button type = "button" class = "btn btn-default" id = "delete-outfit-button">
