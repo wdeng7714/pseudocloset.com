@@ -19,13 +19,22 @@
 			$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "' . $row['name'].'", "' . $row['id'] . '","' . $row['parts'] . '","' . $row['numparts'] . '","'. $_GET['date'].'")' ;
 			if(mysqli_query($con, $query)){
 
-				$successmsg = "Your plan was successfully added";
-				header("Location: addplan.php");
+				$successmsg = "Plan successfully added. <a href = 'planner.php'>Click here to view planner</a>";
 			}else{
-				$errormsg = "Error 1 Please try again later";
+				$errormsg = "Plan was not successfully added. Please try again later";
 			}
 		}else{
-			$errormsg = "Error 2 Please try again later";
+			$errormsg = "Plan was not successfully added. Please try again later";
+		}
+	}
+	if( isset($_GET['outfitparts'])){
+		$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'", CURDATE())';
+
+		if(mysqli_query($con, $query)){
+			$successmsg = "Plan successfully added. <a href = 'planner.php'>Click here to view planner</a>";
+		}
+		else{
+			$errormsg = "Plan was not successfully added. Please try again later";
 		}
 	}
 ?>
@@ -41,6 +50,7 @@
 		<link rel = "stylesheet" href = "vendor/owl-carousel/css/owl.transitions.css" type="text/css"/>
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/> 
 		<link rel = "stylesheet" href = "css/main.css" type = "text/css"/>
+		<link rel = "stylesheet" href = "vendor/datepicker/datepicker.css"/>
 
 		<script src = "vendor/jquery/jquery-2.1.1.min.js"></script>
         <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -182,10 +192,10 @@
 					<div class = "form-group">
 						<button type = "submit" id = "addplan" class = "btn btn-primary"> Submit
 						</button>
-						<span id = "outfit-selection-error" class = "text-danger"></span>
-						<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?> </span>
-						<span class = "text-success" id = "successful"><?php if(isset($successmsg)) echo $successmsg;?> </span>
 					</div>
+					<span id = "outfit-selection-error" class = "text-danger"></span>
+					<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?> </span>
+					<span class = "text-success" id = "successful"><?php if(isset($successmsg)) echo $successmsg;?> </span>
 				</div>
 			</div>
 		</div>
@@ -199,41 +209,6 @@
         	$('#datepicker').datetimepicker({
 				format: 'YYYY-MM-DD'
     		});
-    	</script>
-    	<script>
-    	    $('#addplan').click(function(){
-    	    	var date = $('[name = datechoice]').val();
-    	    	if(date === ""){
-           		   	$('#outfit-selection-error').text("Date cannot be empty");
-           		}else{
-               		if($('[name = "radio-outfit"]:checked').val() === "yes"){
-	           			if($('#outfit-selection').val() === null){
-	  	         			$('#outfit-selection-error').text("Please select an outfit");
-	           		 	}
-	           		 	else{
-	           		   		var outfitid = $('#outfit-selection').val();           
-	                		window.location.href = "addplan.php?outfitselectionid=" + outfitid +"&date=" + date;
-	            	 	}
-	       			 }else{
-	            		var parts = "";
-	            		var counter = 0;
-
-	           			$('.icon-check').each(function(){
-	                		counter++;
-	                		parts += ($(this).attr("id")).substring(8) + " "; 
-	            		})
-	            		if(counter <2){
-	                		$('#outfit-selection-error').text("Please select at least 2 article of clothing");
-	            		}
-	            		else if(counter > 10){
-	                		$('#outfit-selection-error').text("Please only select up to 10 items at once");
-	            		}
-	            		else{
-	            			window.location.href = "planner.php?outfitparts=" + parts + "&outfitnumparts=" + counter;
-	            		}
-	        		}
-	    		}
-    	})
     	</script>
 	</body>
 </html>
