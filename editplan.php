@@ -24,34 +24,33 @@
 		if($planrow['outfitid'] == -1){
 			$hasoutfit = false;
 		}
-	}else{
-		if( isset($_GET['outfitselectionid'])){
-			$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
-			$result = mysqli_query($con, $query);
+	}
 
-			if($result){
-				$row = mysqli_fetch_array($result);
+	if( isset($_GET['outfitselectionid'])){
+		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
+		$result = mysqli_query($con, $query);
+		$row = mysqli_fetch_array($result);
+		if($row){
+			$query = "UPDATE plans SET name='" . $row['name'] . "', outfitid = '" . $row['id'] . "', parts='" . $row['parts'] . "', numparts='" . $row['numparts'] . "', date = '" . $_GET['date'] ."' WHERE userid=" . $_SESSION['userid'] . " AND id=" . $_GET['planid']; 
+			echo $query;
+			if(mysqli_query($con, $query)){
 
-				$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "' . $row['name'].'", "' . $row['id'] . '","' . $row['parts'] . '","' . $row['numparts'] . '","'. $_GET['date'].'")' ;
-				if(mysqli_query($con, $query)){
-
-					$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
-				}else{
-					$errormsg = "Plan was not successfully updated. Please try again later";
-				}
+				$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
 			}else{
 				$errormsg = "Plan was not successfully updated. Please try again later";
 			}
+		}else{
+			$errormsg = "Plan was not successfully updated. Please try again later";
 		}
-		else if( isset($_GET['outfitparts'])){
-			$query = "INSERT INTO plans (userid, name, outfitid, parts, numparts, date) values (" . $_SESSION['userid'] . ', "unnamed", -1, "'.$_GET['outfitparts'] . '","' . $_GET['outfitnumparts'] .'","' . $_GET['date'] .'")';
+	}
+	else if( isset($_GET['outfitparts'])){
+		$query = "UPDATE plans SET name='unnamed', outfitid = -1 , parts='" . $_GET['outfitparts'] . "', numparts='" . $_GET['outfitnumparts'] . "', date = '" . $_GET['date'] ."' WHERE userid=" . $_SESSION['userid'] . " AND id=" . $_GET['planid']; 
 
-			if(mysqli_query($con, $query)){
-				$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
-			}
-			else{
-				$errormsg = "Plan was not successfully updated. Please try again later";
-			}
+		if(mysqli_query($con, $query)){
+			$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
+		}
+		else{
+			$errormsg = "Plan was not successfully updated. Please try again later";
 		}
 	}
 ?>
@@ -214,16 +213,15 @@
 						</div>
 					</div>
 					<div class = "form-group">
-						<button type = "submit" id = "addplan" class = "btn btn-primary">
+						<button type = "submit" id = "editplan" class = "btn btn-primary">
 							Submit plan
 						</button>
                         <a type = "button" href = "planner.php" class ="btn btn-default pull-right">
                             Discard plan
                         </a>
 					</div>
-					<span id = "outfit-selection-error" class = "text-danger"></span>
-					<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?> </span>
-					<span class = "text-success" id = "successful"><?php if(isset($successmsg)) echo $successmsg;?> </span>
+					<span class = "text-danger" id = "errormsg"><?php if(isset($errormsg)) echo $errormsg;?> </span>
+					<span class = "text-success" id = "successmsg"><?php if(isset($successmsg)) echo $successmsg;?> </span>
 				</div>
 			</div>
 		</div>
@@ -257,5 +255,44 @@
 				}
 			}
     	?>
+
+    	<script>
+
+	    	$('#editplan').click(function(){
+    			$('#successmsg').text("");
+		        var date = $('[name = datechoice]').val();
+		        if(date === ""){
+		            $('#errormsg').text("Please select a date for the plan");
+		        }else{
+		            if($('[name = "radio-outfit"]:checked').val() === "yes"){
+		                if($('#outfit-selection').val() === null){
+		                    $('#outfit-selection-error').text("Please select an outfit");
+		                }
+		                else{
+		                    var outfitid = $('#outfit-selection').val();           
+		                    window.location.href = "editplan.php?outfitselectionid=" + outfitid +"&date=" + date +"&planid=" + <?php echo $_GET['planid']; ?>;
+		                }
+		             }else{
+		                
+		                var parts = "";
+		                var counter = 0;
+
+		                $('.icon-check').each(function(){
+		                    counter++;
+		                    parts += ($(this).attr("id")).substring(8) + " "; 
+		                })
+		                if(counter < 2){
+		                    $('#errormsg').text("Please select at least 2 article of clothing");
+		                }
+		                else if(counter > 10){
+		                    $('#errormsg').text("Please only select up to 10 items at once");
+		                }
+		                else{
+		                    window.location.href = "editplan.php?outfitparts=" + parts + "&outfitnumparts=" + counter + "&date=" + date +"&planid=" + <?php echo $_GET['planid']; ?>;
+		                }
+		            }
+		        }
+		    })
+    	</script>
 	</body>
 </html>

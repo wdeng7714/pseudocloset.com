@@ -198,9 +198,8 @@
                             Discard plan
                         </a>
 					</div>
-					<span id = "outfit-selection-error" class = "text-danger"></span>
-					<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?> </span>
-					<span class = "text-success" id = "successful"><?php if(isset($successmsg)) echo $successmsg;?> </span>
+					<span class = "text-danger" id = "errormsg"><?php if(isset($errormsg)) echo $errormsg;?> </span>
+					<span class = "text-success" id = "successmsg"><?php if(isset($successmsg)) echo $successmsg;?> </span>
 				</div>
 			</div>
 		</div>
@@ -217,9 +216,10 @@
     	</script>
     	<script>
     		$('#addplan').click(function(){
+    			$('#successmsg').text("");
 		        var date = $('[name = datechoice]').val();
 		        if(date === ""){
-		            $('#outfit-selection-error').text("Please select a date for the plan");
+		            $('#errormsg').text("Please select a date for the plan");
 		        }else{
 		            if($('[name = "radio-outfit"]:checked').val() === "yes"){
 		                if($('#outfit-selection').val() === null){
@@ -239,10 +239,10 @@
 		                    parts += ($(this).attr("id")).substring(8) + " "; 
 		                })
 		                if(counter < 2){
-		                    $('#outfit-selection-error').text("Please select at least 2 article of clothing");
+		                    $('#errormsg').text("Please select at least 2 article of clothing");
 		                }
 		                else if(counter > 10){
-		                    $('#outfit-selection-error').text("Please only select up to 10 items at once");
+		                    $('#errormsg').text("Please only select up to 10 items at once");
 		                }
 		                else{
 		                    window.location.href = "addplan.php?outfitparts=" + parts + "&outfitnumparts=" + counter + "&date=" + date;
