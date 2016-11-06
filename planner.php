@@ -150,6 +150,11 @@
 				</div>
 			</div>
 		</div>
-		
+		<script>
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				items: 3
+			});
+		</script>
 	</body>
 </html>
