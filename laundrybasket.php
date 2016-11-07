@@ -5,11 +5,12 @@
 		header("Location: index.php");
 	}
 
-	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 2";
+	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 0";
 	$result = mysqli_query($con, $query);
 
 	$item_display=0;
-	$result_copy = $result;
+	$max_per_page=8;
+	
 
 ?>
 <!DOCTYPE html>
@@ -104,30 +105,25 @@
 				<div class = "col-lg-12">
 					<h2 class = "text-center page-header">Laundry Basket</h2>
 				</div>
-				<div class = "col-md-12">
-
-					<!-- Centered Pills -->
-					<ul class="nav nav-pills nav-justified" id = "views" >
-						<li id = "all"><a href ="#" class= "" >All</a></li>
- 						<li id = "tops"><a href ="#" class= "" >Tops</a></li>
-						<li id = "bottoms"><a href ="#" class= "" >Bottoms</a></li>
-						<li id = "misc"><a href ="#" class= "" >Misc</a></li>
-					</ul>
-				</div>
-
-				<div class = "col-lg-12" id = "viewstage">
-					<h4>View: all</h4>
+				<div class = "owl-carousel col-md-10 col-offset-11">
 					<?php
-						while ($row = mysqli_fetch_array($result)) {
-							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item planner-item" ><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a></div>';
+						$totalitems = mysqli_num_rows($result);
+							
+						for($i=0; $i < round($totalitems/$max_per_page)+1; ++$i){
+							echo "<div class = 'row item'>";
+							for ($j = 0; $j < $max_per_page; $j++){
+								$row = mysqli_fetch_array($result);
+								if($row){
+									echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item planner-item col-eq-height" ><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a></div>';
+								}
+								
+							}
+							echo "</div>";
 						}
+						//}
 						
-					?>
-
-					<div class = "thumbnail-hide" id = "outfits-gallery">
-						<?php include "outfits-gallery.php"; ?>
-					</div>
-				</div>
+					?>	
+				</div>				
 			</div>
 		</div>
 
@@ -136,5 +132,11 @@
         <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
         <script src = "js/main.js"></script>
+        <script>
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				singleItem: true
+			});
+		</script>
 	</body>
 </html>
