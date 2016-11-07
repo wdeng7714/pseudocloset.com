@@ -190,7 +190,7 @@
 									Today's Outfit <?php if ($numoutfits > 1) echo "#" . $outfitcounter; ?>
 								</div>
 								<div class ="panel-body">
-									<div class = "owl-carousel col-md-12 clothing-carousel">											
+									<div class = "owl-carousel col-md-12 plan-carousel">											
 										<?php
 											$parts = explode(" ", $plans_row['parts']);
 											for($i = 0; $i < $plans_row['numparts']; $i++){
@@ -209,7 +209,7 @@
 						</div>
 				<?php }
 				} else { ?>
-					<div class = "col-md-6">
+					<div class = "col-md-12">
 						<div class = "panel panel-info">
 							<div class ="panel-heading">
 								Today's Outfit
@@ -245,7 +245,7 @@
 								</div>
 								<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg; ?></span>
 								<div class="collapse collapsible">
-								<div class ="owl-carousel col-md-12 clothingcarousel">		
+								<div class ="owl-carousel col-md-12" id="clothing-carousel">		
 									<?php
 										while($row = mysqli_fetch_array($clothingresult)){
 											$display++;
@@ -341,7 +341,11 @@
 				loop: true,
 				items: 4
 			});
-			$('.clothing-carousel').owlCarousel({
+			$('#clothing-carousel').owlCarousel({
+				loop: true,
+				items: 4
+			});
+			$('.plan-carousel').owlCarousel({
 				loop: true,
 				items: <?php if ($numoutfits > 1) echo '2'; else echo '4'; ?>
 			});
