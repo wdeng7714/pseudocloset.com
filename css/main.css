@@ -46,3 +46,17 @@ body{
 .col-eq-height {
 	height: 215px;
 }
+
+.carousel-control {
+    background: none;
+    color: #CACACA;
+    font-size: 2.3em;
+    text-shadow: none;
+    margin-top: 30px;
+}
+.carousel-control.left {
+    left: -60px;
+}
+.carousel-control.right {
+    right: -60px;
+}
