@@ -187,16 +187,40 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type = "button" class = "btn btn-success">
-							<i class="fa fa-plus" aria-hidden="true"></i> 
-							Laundry Basket
-						</button>
+						<span id = "modal-msg">
+							<span class = "text-success"><?php if(isset($laundrysuccessmsg)) echo $laundrysuccessmsg; ?></span>
+							<span class = "text-danger"><?php if(isset($laundryerrormsg)) echo $laundryerrormsg; ?></span>
+						</span>
+						<a type = "button" class = "btn btn-success item-hide" id = "to-laundry-button">
+							<i class="icon-plus" aria-hidden="true"></i> 
+							 Add laundry
+						</a>
+						<a type = "button" class = "btn btn-danger item-hide" id = "from-laundry-button">
+							<i class="icon-minus" aria-hidden="true"></i> 
+							 Remove laundry
+						</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			$('#to-laundry-button').click(function(){
+				$('#modal-msg').empty().load('tolaundry.php?clothingid=' + $('#to-laundry-button').attr("clothingid"));
+				$('#to-laundry-button').addClass("item-hide");
+				$('#from-laundry-button').removeClass("item-hide");
+				$('.item-timesworn p').text(2);
+				$('[clothingid=' + $('#to-laundry-button').attr("clothingid") + ']').attr("timesworn",2);
 
+			})
+			$('#from-laundry-button').click(function(){
+				$('#modal-msg').empty().load('fromlaundry.php?clothingid=' + $('#from-laundry-button').attr("clothingid"));
+				$('#from-laundry-button').addClass("item-hide");
+				$('#to-laundry-button').removeClass("item-hide");
+				$('.item-timesworn p').text(0);
+				$('[clothingid=' + $('#from-laundry-button').attr("clothingid") + ']').attr("timesworn",0);
+			})
+		</script>
 		<script>
 			$('.owl-carousel').owlCarousel({
 				loop: true,

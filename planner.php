@@ -246,7 +246,7 @@
 				<?php } ?>
 			</div>
 		</div>
-		<div class="modal fade" id="item-modal" role="dialog">
+				<div class="modal fade" id="item-modal" role="dialog">
 			<div class = "modal-dialog modal-md">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -254,7 +254,7 @@
 						<h4 class="modal-title"></h4>
 					</div>
 					<div class="modal-body">
-						<div class = "container-fluid">
+						<div class = "container-fluid">	
 							<div class = "row center">
 								<div class = "col-md-6 col-xs-12">
 									<img src = "" class = "item-img center-block"/>
@@ -283,10 +283,6 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type = "button" class = "btn btn-success">
-							<i class="fa fa-plus" aria-hidden="true"></i> 
-							Laundry Basket
-						</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
