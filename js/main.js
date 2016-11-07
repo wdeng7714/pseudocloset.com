@@ -71,14 +71,14 @@ $( document ).ready(function() {;
     });
 
     $('#delete-clothing-button').click(function(e){
-        var result = confirm("Are you sure you wish to delete this item?");
+        var result = confirm("Are you sure you wish to delete this item? \n\nThis will delete all outfits and plans associated with it. ");
         if(result){
             window.location = "deleteclothing.php?id=" + id;
         }
     });
 
     $('.delete-outfit-button').click(function(e){
-        var result = confirm("Are you sure you wish to delete this outfit?");
+        var result = confirm("Are you sure you wish to delete this outfit? \n\nThis will delete all outplans assoicated with it.");
         if(result){
             window.location  = "deleteoutfit.php?id=" + $(this).attr("outfitid");
         }
