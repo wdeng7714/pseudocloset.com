@@ -144,7 +144,7 @@
 					?>
 
 					<div class = "thumbnail-hide" id = "outfits-gallery">
-						<?php include "outfits-gallery.php"; ?>
+						<?php include "outfitsgallery.php"; ?>
 					</div>
 				</div>
 			</div>
