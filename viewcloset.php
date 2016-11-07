@@ -7,7 +7,7 @@
 
 	include_once "updateclothes.php";
 
-	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
+	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " ORDER BY name";
 	$result = mysqli_query($con, $query);
 
 	$item_display=0;
@@ -15,7 +15,7 @@
 	$result_copy = $result;
 
 	$outfit_display = 0;
-	$outfit_query = "SELECT * FROM outfits WHERE userid = " . $_SESSION['userid'];
+	$outfit_query = "SELECT * FROM outfits WHERE userid = " . $_SESSION['userid']. "ORDER BY name";
 	$outfit_result = mysqli_query($con, $outfit_query);
 	$max_outfit_per_page = 10;
 
