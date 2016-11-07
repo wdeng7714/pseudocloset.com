@@ -50,9 +50,11 @@ $( document ).ready(function() {;
     var lastworn;
     var type;
     var id;
+    var isdirty = 2;
 
     $('.thumbnail').click(function(){
         // $('.modal-body').empty();
+
         name = $(this).attr('name');
         url = $(this).attr('url');
         color = "#" + $(this).attr('color');
@@ -60,7 +62,7 @@ $( document ).ready(function() {;
         lastworn = $(this).attr('lastworn'); 
         type = $(this).attr('type');
         id = $(this).attr('id');
-
+        $('#modal-msg').empty();
         $('.modal-title').text(name);
         $('.item-color p').css('background-color', color);
         $('.modal-body .item-img').attr('src',url);
@@ -68,6 +70,15 @@ $( document ).ready(function() {;
         $('.item-timesworn p').text(timesworn);
 
         $('#edit-button').attr('href',"editclothing.php?clothingid=" + id);
+        $('#to-laundry-button').addClass("item-hide");
+        $('#from-laundry-button').addClass("item-hide");
+        if(timesworn < isdirty){
+            $('#to-laundry-button').attr("clothingid", id);
+            $('#to-laundry-button').removeClass("item-hide");
+        }else{
+            $('#from-laundry-button').attr("clothingid",id);
+            $('#from-laundry-button').removeClass("item-hide");
+        }
     });
 
     $('#delete-clothing-button').click(function(e){

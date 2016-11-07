@@ -14,7 +14,7 @@
 		$outfit_display++;
 ?>
 	<div class = "col-md-8 col-md-offset-2">
-		<div class = "panel panel-success">
+		<div class = "panel panel-default">
 			<div class ="panel-heading clearfix">
 				<h5 class = "pull-left"><?php echo $outfit_row['name']; ?></h5>
 				<div class = "pull-right">
