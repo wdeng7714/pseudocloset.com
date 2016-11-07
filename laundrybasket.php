@@ -5,12 +5,27 @@
 		header("Location: index.php");
 	}
 
-	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 0";
+	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 0 ORDER BY timesworn DESC";
 	$result = mysqli_query($con, $query);
 
 	$item_display=0;
 	$max_per_page=8;
 	
+	if(isset($_GET['clothingid'])){
+		$clothingitem=explode(" ", $_GET['clothingid']);
+		$items = $_GET['items'];
+		
+		for($i = 0; $i < $items ; $i++){
+		
+			$updatequery = "UPDATE clothing SET timesworn = 0 WHERE clothing.id = ". $clothingitem[$i]. " AND userid = ". $_SESSION['userid'];
+			if(mysqli_query($con, $updatequery)){
+				$successmsg = "Wash registered successfully! The selected clothes are now marked clean";
+			}else{
+				$failmsg ="Unable to update wash, try again later";
+			}
+		}
+	header("Location: laundrybasket.php");
+	}
 
 ?>
 <!DOCTYPE html>
@@ -102,10 +117,24 @@
 
         <div class = "container"> 
 			<div class ="row" >
-				<div class = "col-lg-12">
+				
 					<h2 class = "text-center page-header">Laundry Basket</h2>
-				</div>
-				<div class = "owl-carousel col-md-10 col-offset-11">
+							
+				<div class = "panel panel-info">
+					<div class = "panel-heading clearfix">
+						<div class = "col-md-6">
+							<h5><i class="icon-tint" aria-hidden="true"></i> These are clothes that need washing </h5>
+						</div>
+						<div class = "col-md-6">
+							<span class = "text-success"><?php if(isset($successmsg)) echo $successmsg;?>
+							</span>
+							<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?>
+							</span>
+							<button class = "btn btn-default pull-right" id = "submitwash">Wash clothing</button>
+						</div>
+					</div>
+					<div class = "panel-body">
+						<div class = "owl-carousel col-md-10 col-offset-11">
 					<?php
 						$totalitems = mysqli_num_rows($result);
 							
@@ -120,14 +149,17 @@
 							}
 							echo "</div>";
 						}
-						//}
+						
 						
 					?>	
-				</div>				
+				</div>
+					</div>
+					
+				</div>
+					
+				
 			</div>
 		</div>
-
-
 		<script src = "vendor/jquery/jquery-2.1.1.min.js"></script>
         <script src = "vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
@@ -137,6 +169,19 @@
 				loop: true,
 				singleItem: true
 			});
+		</script>
+		<script>
+			$('#submitwash').click(function(){
+				var clothingid="";
+				var counter = 0;
+				$('.icon-check').each(function(){
+					clothingid += ($(this).attr("id")).substring(8) + " ";	
+					counter++;
+				})
+				if(counter>0){
+					window.location.href = "laundrybasket.php?clothingid=" + clothingid + "&items=" +counter;
+				}
+			})
 		</script>
 	</body>
 </html>
