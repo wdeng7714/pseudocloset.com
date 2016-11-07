@@ -1,4 +1,5 @@
 $( document ).ready(function() {;
+
     $('#all').addClass('active');
 
     $('#views li').click(function(){
@@ -20,7 +21,7 @@ $( document ).ready(function() {;
             $('[type = "dress"').parents().removeClass("thumbnail-hide");
             $('[type = "jacket"').parents().removeClass("thumbnail-hide");
             $('#outfits-gallery').addClass("thumbnail-hide");
-            
+
         }else if(viewValue == "bottoms"){
             $('.thumbnail-item').addClass("thumbnail-hide");
             $('[type = "pants"').parents().removeClass("thumbnail-hide");

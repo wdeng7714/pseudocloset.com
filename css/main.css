@@ -42,3 +42,7 @@ body{
 .collapsible{
 	padding: 0;
 }
+
+.col-eq-height {
+	height: 215px;
+}
