@@ -2,6 +2,10 @@
 	session_start();
 	include_once "connectdb.php";
 
+	if(isset($_SESSION['userid'])){
+		include_once "updateclothes.php";
+	}
+
 	if( isset($_GET['outfitselectionid'])){
 		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
 		$result = mysqli_query($con, $query);

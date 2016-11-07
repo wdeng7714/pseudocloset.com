@@ -5,6 +5,8 @@
 		header("Location: index.php");
 	}
 
+	include_once "updateclothes.php";
+
 	$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
 	$result = mysqli_query($con, $query);
 
@@ -16,6 +18,8 @@
 	$outfit_query = "SELECT * FROM outfits WHERE userid = " . $_SESSION['userid'];
 	$outfit_result = mysqli_query($con, $outfit_query);
 	$max_outfit_per_page = 10;
+
+
 
 ?>
 <!DOCTYPE html>

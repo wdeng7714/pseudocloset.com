@@ -4,6 +4,7 @@
 	if (!isset($_SESSION['userid'])){
 		header("Location: index.php");
 	}
+	include_once "updateclothes.php";
 
 	if( isset($_GET['outfitselectionid'])){
 		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
