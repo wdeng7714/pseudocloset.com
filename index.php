@@ -152,23 +152,45 @@
 			<div class = "container">
 				<div class = "row">
 					<div class = "col-md-12">
-						<h2 class = "text-center page-header">
-							Welcome to <?php echo $_SESSION['username'];?>'s PseudoCloset
-						</h2>
+						<div class = "panel panel-danger">
+							<div class = "panel-heading">
+								<i class="icon-warning-sign"></i> Alert! These needs washing!
+							</div>
+							<div class = "panel-body">
+								<div class = "row">
+									<div class = "owl-carousel col-md-12" id = "alerts-carousel">
+										<?php
+											$alertsquery = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 2 ORDER BY timesworn DESC";
+											$alertsresult = mysqli_query($con, $alertsquery);
+											
+											while($alertsrow = mysqli_fetch_array($alertsresult)){
+												echo '<div class = "item"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $alertsrow['color'] .'" timesworn="' . $alertsrow['timesworn'] . '" name = "' . $alertsrow['name'] . '" url = "' . $alertsrow['url'] .'" lastworn = "' . $alertsrow['lastworn'] . '" type = "'.$alertsrow['type'].'" id = "'. $alertsrow['id'] .'"><p>' . $alertsrow['name'] . '</p><img src="' . $alertsrow["url"] . '"></a></div>';
+											}
+										?>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class = "row">
+
+
+
 				<?php //START HERE
-					if(mysqli_num_rows($todayresult) > 0){
+					$numoutfits = mysqli_num_rows($todayresult);
+					$outfitcounter = 0;
+					if($numoutfits > 0){
 						while ($plans_row = mysqli_fetch_array($todayresult)){
+							$outfitcounter++;
 						?>
-						<div class = "col-md-8">
+						<div class = "col-md-<?php if ($numoutfits > 1) echo '6'; else echo '12'; ?>">
 							<div class = "panel panel-info">
 								<div class ="panel-heading clearfix">
-									Today's Outfit
+									Today's Outfit <?php if ($numoutfits > 1) echo "#" . $outfitcounter; ?>
 								</div>
 								<div class ="panel-body">
-									<div class = "owl-carousel col-md-12">											
+									<div class = "owl-carousel col-md-12 clothing-carousel">											
 										<?php
 											$parts = explode(" ", $plans_row['parts']);
 											for($i = 0; $i < $plans_row['numparts']; $i++){
@@ -185,10 +207,9 @@
 								</div>
 							</div>
 						</div>
-
 				<?php }
 				} else { ?>
-					<div class = "col-md-8">
+					<div class = "col-md-6">
 						<div class = "panel panel-info">
 							<div class ="panel-heading">
 								Today's Outfit
@@ -224,7 +245,7 @@
 								</div>
 								<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg; ?></span>
 								<div class="collapse collapsible">
-								<div class ="owl-carousel col-md-12 ">		
+								<div class ="owl-carousel col-md-12 clothingcarousel">		
 									<?php
 										while($row = mysqli_fetch_array($clothingresult)){
 											$display++;
@@ -244,32 +265,56 @@
 						</div>
 					</div>
 				<?php } ?>
-
-					<div class = "col-md-4">
-						<ul>
-							<a href = "viewcloset.php" class = "btn btn-default btn-block">View closet</a>
-							<a href = "planner.php" class = "btn btn-default btn-block">Planner</a>
-							<a href = "laundrybasket.php" class = "btn btn-default btn-block">Laundry basket
-							</a>
-							<a class = "btn btn-default btn-block" href = "addclothing.php">Add clothing
-							</a>
-						</ul>
-					</div>
-
-					<div class = "col-md-8 well">
-						<h3 class = "text-center"> Alerts </h3>
-						<?php 
-							$query = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"];
-							$result = mysqli_query($con, $query);
-							while($row = mysqli_fetch_array($result)){
-								if ($row['timesworn']>=1){
-									echo "<div> <p>". $row["name"]. " has been worn ". $row["timesworn"] . " times, it's time for a wash! " . $row["name"] ." has been placed in your laundry basket. </p> </div>";	
-								}
-							}
-						?> 
-					</div>
 				</div> 
 			</div>
+
+			<div class="modal fade" id="item-modal" role="dialog">
+				<div class = "modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"></h4>
+						</div>
+						<div class="modal-body">
+							<div class = "container-fluid">	
+								<div class = "row center">
+									<div class = "col-md-6 col-xs-12">
+										<img src = "" class = "item-img center-block"/>
+									</div>
+									<div class = "col-md-6 col-xs-12 well">
+										<div class = "row">
+	 										<dl>
+	  											<dt class = "col-xs-12">Color</dt>
+	  											<dd class = "col-xs-12 item-color"><p> &nbsp; </p></dd>
+	  											<dt class = "col-xs-12">Times worn</dt>
+	  											<dd class = "item-timesworn col-xs-12"><p></p></dd>
+	  											<dt class = "col-xs-12">Last worn</dt>
+	  											<dd class = "col-xs-12 item-lastworn"><p></p></dd>
+											</dl>
+											<a type = "button" class = "btn btn-primary col-xs-offset-1" id = "edit-button">
+												<span class="glyphicon glyphicon-pencil"></span>
+												Edit
+											</a>
+											<button type = "button" class = "btn btn-danger" id = "delete-clothing-button">
+												<span class="glyphicon glyphicon-trash"></span>
+												Delete
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type = "button" class = "btn btn-success">
+								<i class="fa fa-plus" aria-hidden="true"></i> 
+								Laundry Basket
+							</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 
 		<?php }else{?>
 			<div class = "jumbotron">
@@ -292,9 +337,13 @@
 		<?php }?>
 
 		<script>
-			$('.owl-carousel').owlCarousel({
+			$('#alerts-carousel').owlCarousel({
 				loop: true,
-				items: 3
+				items: 4
+			});
+			$('.clothing-carousel').owlCarousel({
+				loop: true,
+				items: <?php if ($numoutfits > 1) echo '2'; else echo '4'; ?>
 			});
 		</script>
 		<script>
