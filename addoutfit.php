@@ -171,7 +171,7 @@
 									<option value "" disabled selected hidden> Choose a piece of clothing </option>
 									<optgroup label = "Tops">
 										<?php
-											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket')";
+											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'sweater' OR type = 'shirt' OR type ='jacket' OR type ='dress') ORDER BY name";
 											echo $query;
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)){
@@ -181,7 +181,7 @@
 									</optgroup>
 									<optgroup label = "Bottoms">
 										<?php
-											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND type = 'pants'";
+											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'pants' OR type = 'skirt') ORDER BY name";
 											echo $query;
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)){
@@ -191,7 +191,7 @@
 									</optgroup>
 									<optgroup label = "Misc">
 										<?php
-											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'socks' OR type ='underwear' OR type ='accessory')";
+											$query = "SELECT * FROM clothing WHERE userid = ". $_SESSION["userid"] . " AND (type = 'socks' OR type ='shoes' OR type ='accessory') ORDER BY name";
 											echo $query;
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)){

@@ -7,7 +7,7 @@
 	include_once "updateclothes.php";
 
 	if( isset($_GET['outfitselectionid'])){
-		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
+		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'] ." ORDER BY name";
 		$result = mysqli_query($con, $query);
 		if($result){
 			$row = mysqli_fetch_array($result);
@@ -38,9 +38,9 @@
 	}
 
 
-	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'];
+	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'] . " ORDER BY name";
 	$outfitresult = mysqli_query($con, $outfitquery);
-    $clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'];
+    $clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid']. " ORDER BY name";
     $clothingresult =mysqli_query($con, $clothingquery);
     $display=0;
     $max_per_page=20;
@@ -48,7 +48,7 @@
     $plansquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'] . " ORDER BY date" ;
     $plansresult = mysqli_query($con, $plansquery);
 
-    $todayquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'] . " AND date = CURDATE()";
+    $todayquery = "SELECT * FROM plans WHERE userid = " . $_SESSION['userid'] . " AND date = CURDATE() ORDER BY date";
     $todayresult = mysqli_query($con, $todayquery);
 
 ?>
@@ -230,8 +230,7 @@
 										<?php
 											$parts = explode(" ", $plans_row['parts']);
 											for($i = 0; $i < $plans_row['numparts']; $i++){
-
-												$query = "SELECT * FROM clothing WHERE id=" . $parts[$i];
+												$query = "SELECT * FROM clothing WHERE id=" . $parts[$i] . " ORDER BY name";
 												$result = mysqli_query($con, $query);
 												if($result){
 													$row = mysqli_fetch_array($result);
