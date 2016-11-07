@@ -10,7 +10,7 @@
 	$outfitresult = mysqli_query($con, $outfitquery);
 
 	if( isset($_GET['outfitselectionid'])){
-		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid']. "ORDER BY name";
+		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid']. " ORDER BY name";
 		$result = mysqli_query($con, $query);
 
 		if($result){
