@@ -4,13 +4,13 @@
 	if (!isset($_SESSION['userid'])){
 		header("Location: index.php");
 	}
-	$clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'];
+	$clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'] . " ORDER BY name";
 	$clothingresult =mysqli_query($con, $clothingquery);
-	$outfitquery = "SELECT * FROM outfits WHERE userid = ". $_SESSION['userid'];
+	$outfitquery = "SELECT * FROM outfits WHERE userid = ". $_SESSION['userid']. " ORDER BY name";
 	$outfitresult = mysqli_query($con, $outfitquery);
 
 	if( isset($_GET['outfitselectionid'])){
-		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid'];
+		$query = 'SELECT * FROM outfits WHERE userid = ' . $_SESSION['userid'] . ' AND id = ' . $_GET['outfitselectionid']. "ORDER BY name";
 		$result = mysqli_query($con, $query);
 
 		if($result){
