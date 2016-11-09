@@ -77,4 +77,7 @@ body{
 	#index-description{
 		display:none;
 	}
+	.jumbotron{
+		min-height:400px;
+	}
 }
