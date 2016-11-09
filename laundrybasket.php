@@ -130,7 +130,7 @@
 							</span>
 							<span class = "text-danger"><?php if(isset($errormsg)) echo $errormsg;?>
 							</span>
-							<button class = "btn btn-default pull-right" id = "submitwash">Wash clothing</button>
+							<button class = "btn btn-default pull-right" id = "submitwash">Washed</button>
 						</div>
 					</div>
 					<div class = "panel-body">
