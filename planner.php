@@ -215,7 +215,7 @@
 						<div class = "col-md-8 col-md-offset-2">
 							<div class = "panel panel-info">
 								<div class ="panel-heading clearfix">
-									<h5 class = "pull-left"><?php echo $plans_row['date']; ?> </h5>
+									<h5 class = "pull-left"><?php echo $plans_row['date'] . " - ". $plans_row['name']; ?> </h5>
 									<div class = "pull-right">
 										<a href = "editplan.php?planid=<?php echo $plans_row['id']; ?>"  type = "button" class = "btn btn-default" id = "edit-plan-button">
 											<span class="glyphicon glyphicon-pencil"></span>
