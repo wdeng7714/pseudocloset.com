@@ -73,7 +73,7 @@
         <script src = "js/main.js"></script>
 	</head>
 	<body>
-		<nav class = "navbar navbar-default" role = "navigation">
+		<nav class = "navbar navbar-default" role = "navigation" id= "index-nav">
 			<div class = "container-fluid">
 				<div class= " navbar-header">
 					<button type = "button" class = "navbar-toggle" data-toggle ="collapse" data-target = "#navbar">
@@ -317,13 +317,19 @@
 		<?php }else{?>
 			<div class = "jumbotron">
 				<div class = "container">
-					<h1>Welcome to PseudoCloset</h1>
-					<p>
-						You ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
-					</p>
-					<button class = "btn btn-primary">
-						Learn more &raquo
-					</button>
+					<div class = "row">
+						<h1 class = "text-center"><br/><br/>PseudoCloset</h1>
+					</div>
+					<div>
+						<p><br/>
+							You ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
+						</p>
+					</div>
+					<div class = "row text-center"><br/>
+					<a href = "register.php" class = "btn btn-primary">
+						Sign up today
+					</a>
+					</div>
 				</div>
 			</div>
 
