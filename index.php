@@ -160,7 +160,9 @@
 								<div class = "row">
 									<div class = "owl-carousel col-md-12" id = "alerts-carousel">
 										<?php
-											$alertsquery = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 1 ORDER BY timesworn DESC";
+
+											$alertsquery = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn >= 2 ORDER BY timesworn DESC";
+
 											$alertsresult = mysqli_query($con, $alertsquery);
 											
 											while($alertsrow = mysqli_fetch_array($alertsresult)){
