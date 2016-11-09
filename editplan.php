@@ -32,7 +32,7 @@
 		$row = mysqli_fetch_array($result);
 		if($row){
 			$query = "UPDATE plans SET name='" . $row['name'] . "', outfitid = '" . $row['id'] . "', parts='" . $row['parts'] . "', numparts='" . $row['numparts'] . "', date = '" . $_GET['date'] ."' WHERE userid=" . $_SESSION['userid'] . " AND id=" . $_GET['planid']; 
-			echo $query;
+
 			if(mysqli_query($con, $query)){
 
 				$successmsg = "Plan successfully updated. <a href = 'planner.php'>Click here to view planner</a>";
