@@ -123,7 +123,7 @@
 				<div class = "panel panel-info">
 					<div class = "panel-heading clearfix">
 						<div class = "col-md-6">
-							<h5><i class="icon-tint" aria-hidden="true"></i> These are clothes that need washing </h5>
+							<h5><i class="icon-tint" aria-hidden="true"></i> These are clothes are dirty </h5>
 						</div>
 						<div class = "col-md-6">
 							<span class = "text-success"><?php if(isset($successmsg)) echo $successmsg;?>
@@ -138,12 +138,12 @@
 					<?php
 						$totalitems = mysqli_num_rows($result);
 							
-						for($i=0; $i < round($totalitems/$max_per_page)+1; ++$i){
+						for($i=0; $i < round($totalitems/$max_per_page); ++$i){
 							echo "<div class = 'row item'>";
 							for ($j = 0; $j < $max_per_page; $j++){
 								$row = mysqli_fetch_array($result);
 								if($row){
-									echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item planner-item col-eq-height" ><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a></div>';
+									echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 thumbnail-item planner-item col-eq-height" ><a class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '<span class = "pull-right"><i class="icon-check-empty" id = "checkbox' .$row['id'] . '"></i></span></p><img src="' . $row["url"] . '"></a></div>';
 								}
 								
 							}
