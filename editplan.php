@@ -214,10 +214,10 @@
 					</div>
 					<div class = "form-group">
 						<button type = "submit" id = "editplan" class = "btn btn-primary">
-							Submit plan
+							Submit changes
 						</button>
                         <a type = "button" href = "planner.php" class ="btn btn-default pull-right">
-                            Discard plan
+                            Discard changes
                         </a>
 					</div>
 					<span class = "text-danger" id = "errormsg"><?php if(isset($errormsg)) echo $errormsg;?> </span>
