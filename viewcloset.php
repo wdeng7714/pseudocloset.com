@@ -139,7 +139,7 @@
 					<?php
 						while ($row = mysqli_fetch_array($result_copy)){
 							$item_display++;
-							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-6 thumbnail-item col-eq-height"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
+							echo '<div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 thumbnail-item col-eq-height"><a href = "#item-modal" data-toggle = "modal" class = "thumbnail" color ="' . $row['color'] .'" timesworn="' . $row['timesworn'] . '" name = "' . $row['name'] . '" url = "' . $row['url'] .'" lastworn = "' . $row['lastworn'] . '" type = "'.$row['type'].'" id = "'. $row['id'] .'"><p>' . $row['name'] . '</p><img src="' . $row["url"] . '"></a></div>';
 						}
 					?>
 
