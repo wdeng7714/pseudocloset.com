@@ -38,9 +38,9 @@
 	}
 
 
-	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'];
+	$outfitquery = "SELECT * FROM outfits WHERE userid =". $_SESSION['userid'] . " ORDER BY name";
 	$outfitresult = mysqli_query($con, $outfitquery);
-	$clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'];
+	$clothingquery = "SELECT * FROM clothing WHERE userid = ". $_SESSION['userid'] . " ORDER BY name";
 	$clothingresult =mysqli_query($con, $clothingquery);
 	$display=0;
 	$max_per_page=20;
@@ -160,7 +160,7 @@
 								<div class = "row">
 									<div class = "owl-carousel col-md-12" id = "alerts-carousel">
 										<?php
-											$alertsquery = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 2 ORDER BY timesworn DESC";
+											$alertsquery = "SELECT * FROM clothing WHERE userid = " . $_SESSION["userid"] . " AND timesworn > 1 ORDER BY timesworn DESC";
 											$alertsresult = mysqli_query($con, $alertsquery);
 											
 											while($alertsrow = mysqli_fetch_array($alertsresult)){
@@ -195,7 +195,7 @@
 											$parts = explode(" ", $plans_row['parts']);
 											for($i = 0; $i < $plans_row['numparts']; $i++){
 
-												$query = "SELECT * FROM clothing WHERE id=" . $parts[$i];
+												$query = "SELECT * FROM clothing WHERE id=" . $parts[$i] . " ORDER BY name";
 												$result = mysqli_query($con, $query);
 												if($result){
 													$row = mysqli_fetch_array($result);
