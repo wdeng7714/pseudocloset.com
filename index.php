@@ -320,7 +320,7 @@
 					<div class = "row">
 						<h1 class = "text-center"><br/><br/>PseudoCloset</h1>
 					</div>
-					<div>
+					<div class = "row" id = "index-description">
 						<p><br/>
 							You ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
 						</p>

@@ -72,3 +72,9 @@ body{
 #index-nav{
 	margin: 0;
 }
+
+@media (max-width: 768px) {
+	#index-description{
+		display:none;
+	}
+}
