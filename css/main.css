@@ -71,13 +71,13 @@ body{
 #index-body{
 	overflow-y: hidden;
 }
-#index-nav{
+.navbar-fixed-top{
 	margin: 0;
 	background-color: transparent;
 	border: none;
 }
-#index-nav a{
-	color: #fff;
+#navbar-index a{
+	color: #fff; !important
 }
 
 .navbar-fixed-bottom{

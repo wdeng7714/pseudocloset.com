@@ -54,8 +54,7 @@
 ?>
 
 <!DOCTYPE html>
-
-<html <?php if(!isset($_SESSION['userid'])) echo "id = index-body"; ?> >
+<html <?php if(!isset($_SESSION['userid'])) echo "id = index-body"; ?>>
 	<head>
 		<title> Home | PseudoCloset </title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
@@ -72,8 +71,8 @@
         <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
         <script src = "js/main.js"></script>
 	</head>
-	<body <?php if(!isset($_SESSION['userid'])) echo "id = index-body"; ?> >
-		<nav class = "navbar navbar-default navbar-fixed-top" role = "navigation" <?php if(!isset($_SESSION['userid'])) echo "id= 'index-nav'" ?> >
+	<body <?php if(!isset($_SESSION['userid'])) echo "id = index-body"; ?>>
+		<nav class = "navbar navbar-default <?php if(!isset($_SESSION['userid'])) echo "navbar-fixed-top"; ?>" role = "navigation" <?php if(!isset($_SESSION['userid'])) echo "id='navbar-index'"; ?>>
 			<div class = "container-fluid">
 					<div class= " navbar-header">
 						<button type = "button" class = "navbar-toggle" data-toggle ="collapse" data-target = "#navbar">
