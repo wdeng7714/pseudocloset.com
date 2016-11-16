@@ -317,7 +317,7 @@
 			<div class = "jumbotron">
 				<div class = "container">
 					<div class = "row">
-						<h1 class = "text-center"><br/><br/><br/>PseudoCloset</h1>
+						<h1 class = "text-center">PseudoCloset</h1>
 					</div>
 					<div class = "row" id = "index-description">
 						<p><br/>
