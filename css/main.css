@@ -55,30 +55,44 @@ body{
     margin-top: 30px;
 }
 .carousel-control.left {
-    left: -60px;
-}
-.carousel-control.right {
+	left: -60px;}
+.carousel-control.ht {
     right: -60px;
 }
 
 .jumbotron{
 	background-repeat: no-repeat;
 	background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/landing.jpeg");
-	min-height: 800px;
+	height: 100vh;
 	background-size: cover;
 	color:#fff;
 }
 
+#index-body{
+	overflow-y: hidden;
+}
 #index-nav{
 	margin: 0;
-	opacity: 0;
+	background-color: transparent;
+	border: none;
+}
+#index-nav a{
+	color: #fff;
 }
 
+.navbar-fixed-bottom{
+	background: none;
+	margin: 0;
+	position: absolute;
+}
+.footer p{
+	color :#fff;
+}
 @media (max-width: 768px) {
 	#index-description{
 		display:none;
 	}
 	.jumbotron{
-		min-height:400px;
+		min-height:800px;
 	}
 }
