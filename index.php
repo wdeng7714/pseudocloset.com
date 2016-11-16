@@ -55,7 +55,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html <?php if(!isset($_SESSION['userid'])) echo "id = index-body"; ?> >
 	<head>
 		<title> Home | PseudoCloset </title>
 		<meta content = "width = device.width , initial-scale = 1.0" name = "viewport">
@@ -72,11 +72,11 @@
         <script src = "vendor/owl-carousel/js/owl.carousel.min.js"></script>
         <script src = "js/main.js"></script>
 	</head>
-	<body>
-		<nav class = "navbar navbar-default" role = "navigation" id= "index-nav">
+	<body <?php if(!isset($_SESSION['userid'])) echo "id = index-body"; ?> >
+		<nav class = "navbar navbar-default navbar-fixed-top" role = "navigation" <?php if(!isset($_SESSION['userid'])) echo "id= 'index-nav'" ?> >
 			<div class = "container-fluid">
-				<div class= " navbar-header">
-					<button type = "button" class = "navbar-toggle" data-toggle ="collapse" data-target = "#navbar">
+					<div class= " navbar-header">
+						<button type = "button" class = "navbar-toggle" data-toggle ="collapse" data-target = "#navbar">
 						<span class ="sr-only"> Toggle navigation </span>
 						<span class ="icon-bar"></span>
 						<span class = "icon-bar"></span>
@@ -318,7 +318,7 @@
 			<div class = "jumbotron">
 				<div class = "container">
 					<div class = "row">
-						<h1 class = "text-center"><br/><br/>PseudoCloset</h1>
+						<h1 class = "text-center"><br/><br/><br/>PseudoCloset</h1>
 					</div>
 					<div class = "row" id = "index-description">
 						<p><br/>
@@ -333,9 +333,9 @@
 				</div>
 			</div>
 
-			<footer class="footer">
+			<footer class = "navbar-fixed-bottom footer">
 				<div class="container">
-					<p class="text-muted text-center">&copy; Copyright Angela Chang and Wendy Deng 2016, All rights reserved</p>
+					<p class="text-muted text-center">&copy; Copyright Angela Chang and Wendy Deng 2016</p>
 				</div>
 			</footer>
 		<?php }?>
