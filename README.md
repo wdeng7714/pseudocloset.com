@@ -9,8 +9,10 @@ Developed and tested using the LAMP(Linux, Apache, MySQL, PHP) stack on localhos
 - Plan the clothes you want to wear ahead of time and pseudoCloset will remind you on the day
 - Keeps track of the clothes you wore and automatically adds them to your laundry basket when they're due for a wash
 - View large collection of items in a carousel to avoid scrolling
+
+##Inventory
 ![homescreen](Homescreen.png)
 ![view clothing](view_clothing.png)
 ![add outfit](add_outfit.png)
-![add clothing](add_clothing.png)
+
 
