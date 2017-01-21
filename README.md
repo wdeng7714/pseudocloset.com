@@ -13,10 +13,11 @@ Developed and tested using the LAMP(Linux, Apache, MySQL, PHP) stack on localhos
 ## Screenshots
 
 #### Laundry Alerts - alerts you when your clothes are getting dirty
-![homescreen](screenshots/closet.png)
+![homescreen](screenshots/homescreen.png)
 
+#### Closet - stores the content of your wardrobe
 
-![view clothing](view_clothing.png)
+![view clothing](screenshots/closet.png)
 ![add outfit](add_outfit.png)
 
 
