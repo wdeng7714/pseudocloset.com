@@ -13,7 +13,7 @@ Developed and tested using the LAMP(Linux, Apache, MySQL, PHP) stack on localhos
 ## Screenshots
 
 #### Laundry Alerts - alerts you when your clothes are getting dirty
-![homescreen](Homescreen.png)
+![homescreen](screenshots/closet.png)
 
 
 ![view clothing](view_clothing.png)
