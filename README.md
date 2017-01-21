@@ -10,13 +10,28 @@ Developed and tested using the LAMP(Linux, Apache, MySQL, PHP) stack on localhos
 - Keeps track of the clothes you wore and automatically adds them to your laundry basket when they're due for a wash
 - View large collection of items in a carousel to avoid scrolling
 
+</br>
 ## Screenshots
 
-#### Laundry Alerts - alerts you when your clothes are getting dirty
-![homescreen](Homescreen.png)
+### Laundry Alerts - alerts you when your clothes are getting dirty
+![homescreen](screenshots/homescreen.png)
 
+</br>
+</br>
 
-![view clothing](view_clothing.png)
-![add outfit](add_outfit.png)
+### Item View - Can view each individual item, and receive information on the number of times worn
+![itemview](screenshots/itemview.png)
+
+</br>
+</br>
+
+### Closet View - stores the clothing items and outfit combos
+![view clothing](screenshots/closet.png)
+
+</br>
+</br>
+
+### Can personalize, edit, and delete outfit, and clothing items
+![add outfit](screenshots/addoutfit.png)
 
 
