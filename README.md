@@ -15,7 +15,9 @@ Developed and tested using the LAMP(Linux, Apache, MySQL, PHP) stack on localhos
 #### Laundry Alerts - alerts you when your clothes are getting dirty
 ![homescreen](screenshots/homescreen.png)
 
-#### Closet - stores the content of your wardrobe
+
+
+#### Closet View - stores the clothing items and outfit combos
 
 ![view clothing](screenshots/closet.png)
 ![add outfit](add_outfit.png)
