@@ -2,7 +2,8 @@
 ## About
 Ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
 Keep track of your clothing in this interactive virtual wardrobe created using HTML, CSS, PHP, MySQL and Javascript.
-Developed and tested using the LAMP(Linux, Apache, MySQL, PHP) stack on localhost
+Developed and tested using the LAMP (Linux, Apache, MySQL, PHP) stack on localhost
+
 ## Features
 - Add, delete, edit items of clothing that you want to keep track of
 - Group together items of clothings to make a outfit
