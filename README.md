@@ -1,8 +1,5 @@
-# pseudocloset.com
-## About
-Ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
-Keep track of your clothing in this interactive virtual wardrobe created using HTML, CSS, PHP, MySQL and Javascript.
-Developed and tested using the LAMP (Linux, Apache, MySQL, PHP) stack on localhost
+# pseudocloset
+**PseudoCloset** is a web application that was developed using LAMP(Linux, Apache, MySQL, PHP) Stack, HTML/CSS, and Javascript. It features an interactive virtual wardrobe where users can keep track of the contents of their closet.
 
 ## Features
 - Add, delete, edit items of clothing that you want to keep track of
@@ -14,24 +11,24 @@ Developed and tested using the LAMP (Linux, Apache, MySQL, PHP) stack on localho
 ## Screenshots
 
 ### Laundry Alerts - alerts you when your clothes are getting dirty
-![homescreen](screenshots/homescreen.png)
+![homescreen](img/homescreen.png)
 
 </br>
 </br>
 
 ### Item View - Can view each individual item, and receive information on the number of times worn
-![itemview](screenshots/itemview.png)
+![itemview](img/itemview.png)
 
 </br>
 </br>
 
 ### Closet View - stores the clothing items and outfit combos
-![view clothing](screenshots/closet.png)
+![view clothing](img/closet.png)
 
 </br>
 </br>
 
 ### Can personalize, edit, and delete outfit, and clothing items
-![add outfit](screenshots/addoutfit.png)
+![add outfit](img/addoutfit.png)
 
 
