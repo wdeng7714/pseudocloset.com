@@ -1,8 +1,5 @@
-# pseudocloset.com
-## About
-Ever had that moment when you stare blankly into your closet and can't figure out what to wear? Well worry no more because you have found just the right place for all your problems...
-Keep track of your clothing in this interactive virtual wardrobe created using HTML, CSS, PHP, MySQL and Javascript.
-Developed and tested using the LAMP (Linux, Apache, MySQL, PHP) stack on localhost
+# pseudocloset
+**PseudoCloset** is a web application that was developed using LAMP(Linux, Apache, MySQL, PHP) Stack, HTML/CSS, and Javascript. It features an interactive virtual wardrobe where users can keep track of the contents of their closet.
 
 ## Features
 - Add, delete, edit items of clothing that you want to keep track of
@@ -11,27 +8,22 @@ Developed and tested using the LAMP (Linux, Apache, MySQL, PHP) stack on localho
 - Keeps track of the clothes you wore and automatically adds them to your laundry basket when they're due for a wash
 - View large collection of items in a carousel to avoid scrolling
 
-## Screenshots
+### Laundry Alerts
+You are alerted when your clothes are getting dirty. You can then add them to the virtual laundry basket, wash them, and render them wearable once more. 
 
-### Laundry Alerts - alerts you when your clothes are getting dirty
-![homescreen](screenshots/homescreen.png)
+<p align="center"><img src="img/homescreen.png" width=700 /></p>
 
-</br>
-</br>
+### Clothing View
+You can view each individual item of clothing that you own, or browse by category. You will also receive statistical data such as the number of times the item has been worn, or how old it is. We wouldn't want some items of clothing to feel left out.
+<p align="center"><img src="img/itemview.png" width=500 /></p>
 
-### Item View - Can view each individual item, and receive information on the number of times worn
-![itemview](screenshots/itemview.png)
 
-</br>
-</br>
+### Closet View
+Not only can you view individual items, you can also create and view collections. These collections are outfit combos that you have planned to wear to wear and grouped together ahead of time.
+<p align="center"><img src="img/closet.png" width=700 /></p>
 
-### Closet View - stores the clothing items and outfit combos
-![view clothing](screenshots/closet.png)
-
-</br>
-</br>
-
-### Can personalize, edit, and delete outfit, and clothing items
-![add outfit](screenshots/addoutfit.png)
+### Personalize
+Feel free to personalize, edit, and delete outfit, and clothing items whenever you want. 
+<p align="center"><img src="img/addoutfit.png" width=400 /></p>
 
 
